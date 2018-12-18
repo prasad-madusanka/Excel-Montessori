@@ -1,0 +1,479 @@
+<div class="row container menu-container">
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-text card-header-info">
+        <div class="card-text">
+          <h5 class="card-title text-center">Add new student</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        Using this feature user can add new students to the system.
+
+        <ul>
+          <li>Click <b>'Add New Student'</b> Button</li>
+          <li>Fill the pop-up form</li>
+          <li>Apply Payment categories form the system</li>
+          <li>Click <b>'Save'</b> Button</li>
+        </ul>
+
+        <div class="text-center">
+          <button class="btn btn-info btn-round" data-toggle="modal" data-target="#addStudentModal">
+            <i class="material-icons">add</i> With Icon
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-text card-header-danger">
+        <div class="card-text">
+          <h5 class="card-title  text-center">Delete/Modify Student Record</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        Using this feature user can <b>Modify</b> students details or <b>Delete</b> student record from the system.
+        <ul>
+          <li>Click <b>'Modify/Delete'</b> Button</li>
+          <li>Search Record and and click record to Modify/Delete</li>
+          <li>Click <b>'Close'</b> Button to close</li>
+        </ul>
+
+        <div class="text-center">
+          <button class="btn btn-danger btn-round">
+            <i class="material-icons">edit</i>
+            Edit or
+            <i class="material-icons">delete</i> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-text card-header-success">
+        <div class="card-text">
+          <h5 class="card-title text-center">Add payment</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        Using this feature user can <b>Make Payment</b> to the students.
+        <ul>
+          <li>Click <b>'Make Payment'</b> Button</li>
+          <li>Select student and payment category</li>
+          <li>Commit the payment by clicking on <b>'Pay'</b> button</li>
+          <li>Click <b>'Close'</b> Button to close</li>
+        </ul>
+
+        <div class="text-center">
+          <button class="btn btn-success btn-round">
+            <i class="material-icons">payment</i>
+            Make Payment
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header card-header-text card-header-rose">
+        <div class="card-text">
+          <h5 class="card-title text-center">Change Fees</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        Using this feature user can change Fees, ex: Admission fess,
+        Monthly Fees & etc.
+
+        <ul>
+          <li>Click <b>'Change Fess'</b> Button</li>
+          <li>Select fee category & change value</li>
+          <li>Click <b>'Save'</b> button</li>
+          <li>Click <b>'Close'</b> Button to close</li>
+        </ul>
+
+        <div class="text-center">
+          <button class="btn btn-rose btn-round">
+            <i class="material-icons">attach_money</i>
+            Change Fees
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header noselect">
+        <h5 class="modal-title" id="exampleModalLabel"><b>Add New student</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name in Full</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Preferred Name</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-4">
+
+              <div class="form-group">
+                <label class="label-control">Date of Birth</label>
+                <input type="text" class="form-control datetimepicker" value="10/05/2016" />
+              </div>
+
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Age</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="" disabled>
+
+              </div>
+            </div>
+
+            <div class="col-md-4">
+
+              <div class="form-check form-check-radio gender">
+
+
+                <div class="row noselect">
+
+                  <div class="col-md">
+                    <label class="form-check-label gender-rad">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1"
+                        checked>
+                      Male
+                      <span class="circle">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+                  <div class="col-md">
+                    <label class="form-check-label gender-rad">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                      Female
+                      <span class="circle">
+                        <span class="check"></span>
+                      </span>
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Religion</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Nationality</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">1<sup>st</sup> Language</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">2<sup>nd</sup> Language</label>
+                <select class="form-control" id="exampleFormControlSelect1">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Home address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Home telephone number</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <br>
+          <br>
+
+          <h6 class="text-center">&mdash; Father's details &mdash;</h6>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Father's Name</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Occupation</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Official address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Mobile number</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Office telephone number</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <br>
+
+          <h6 class="text-center">&mdash; Mother's details &mdash;</h6>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mother's Name</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Occupation</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Official address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Mobile number</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Office telephone number</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+          </div>
+
+          <br>
+          <br>
+
+          <h6 class="text-center">&mdash; Information of people other than a family member who would be picking up the
+            child
+            &mdash;</h6>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">NIC No</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">NIC no</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+          </div>
+
+
+          <br>
+          <br>
+
+          <h6 class="text-center">&mdash; Person to contact in emergency &mdash;</h6>
+
+          <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Name</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Relationship</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  placeholder="Type name here">
+                <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Telephone</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name here">
+            <small id="emailHelp" class="form-text text-muted"><i>* </i></small>
+          </div>
+
+
+
+          <br>
+          <br>
+
+          <h6 class="text-center noselect">&mdash; Describe physical problem/s of the child (if any) &mdash;</h6>
+
+          <div class="row container">
+
+            <div class="noselect">
+
+              <div class="form-check checkbox-physical-problem" *ngFor="let item of illnessesTypes">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" value="">
+                  {{item}}
+                  <span class="form-check-sign">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
