@@ -1,0 +1,37 @@
+.modal-lg{
+    margin-top: 45px;
+    min-width: 80% !important;
+}
+
+.align-search{
+    padding-top: 2rem;
+}
+
+.align-table-from-top{
+    padding-top: 2rem;
+}
+
+tbody {
+    height: 25rem;
+    display: block;
+    overflow: auto;
+}
+
+
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.table td{
+    vertical-align: middle;
+
+}
+// thead {
+//     width: calc( 100% - 1em )
+// }
+
+.i-vertical-sub{
+    vertical-align: sub;
+}

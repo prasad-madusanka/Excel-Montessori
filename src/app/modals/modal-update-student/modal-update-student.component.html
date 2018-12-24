@@ -1,0 +1,497 @@
+<div class="modal fade" id="modalUpdateStudent" tabindex="-1" role="dialog" aria-labelledby="modalUpdateStudentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header noselect">
+        <h5 class="modal-title" id="modalUpdateStudentLabel"><b>Modify/Delete Student Record</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+
+        <form [formGroup]="nStudent" autocomplete="off">
+
+          <div>
+
+            <div class="form-group">
+              <label for="studentFullName">Name in Full</label>
+              <input type="text" class="form-control" id="studentFullName" aria-describedby="studentFullNameHelp"
+                placeholder="Type full name here" [(ngModel)]="studentFullName" formControlName="textOnly">
+              <!-- <small id="studentFullNameHelp" class="form-text text-muted"><i>With Meaning of Initials</i></small> -->
+            </div>
+
+            <div class="form-group">
+              <label for="studentPrefferedName">Preferred Name</label>
+              <input type="text" class="form-control" id="studentPrefferedName" aria-describedby="studentPrefferedNameHelp"
+                placeholder="Type preferred name here" [(ngModel)]="studentPrefferedName" formControlName="textOnly">
+              <small id="studentPrefferedNameHelp" class="form-text text-muted"><i>eg Name - John Doe, Preferred Name
+                  -
+                  John</i></small>
+            </div>
+
+
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="label-control">Date of Birth</label>
+                  <input type="text" class="form-control datetimepicker" value="" placeholder="Click here"
+                    formControlName="date" (blur)="setDOB($event.target.value)" />
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="studentAge">Age</label>
+                  <input type="text" class="form-control text-center" id="studentAge" aria-describedby="studentAge"
+                    placeholder="" [(ngModel)]="studentAge" formControlName="age">
+                </div>
+              </div>
+
+
+              <div class="col-md-4">
+
+                <div class="form-check form-check-radio gender">
+                  <div class="row noselect">
+
+                    <div class="col-md">
+                      <label class="form-check-label gender-rad">
+                        <input class="form-check-input" type="radio" name="studentGender" id="studentGender" value="Male"
+                          [(ngModel)]="studentGender" formControlName="studentGender">
+                        Male
+                        <span class="circle">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+
+                    <div class="col-md">
+                      <label class="form-check-label gender-rad">
+                        <input class="form-check-input" type="radio" name="studentGender" id="studentGender" value="Female"
+                          [(ngModel)]="studentGender" formControlName="studentGender">
+                        Female
+                        <span class="circle">
+                          <span class="check"></span>
+                        </span>
+                      </label>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentReligion">Religion</label>
+                  <select class="form-control" id="studentReligion" [(ngModel)]="studentReligion" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Religion</option>
+                    <option *ngFor="let item of religions" value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentNationality">Nationality</label>
+                  <select class="form-control" id="studentNationality" [(ngModel)]="studentNationality" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Nationality</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentLanguage1">1<sup>st</sup> Language</label>
+                  <select class="form-control" id="studentLanguage1" [(ngModel)]="studentLanguage1" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Language</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentLanguage2">2<sup>nd</sup> Language</label>
+                  <select class="form-control" id="studentLanguage2" [(ngModel)]="studentLanguage2" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Language</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="studentAddress">Home Address</label>
+              <input type="text" class="form-control" id="studentAddress" aria-describedby="studentAddressHelp"
+                placeholder="Type home address here" [(ngModel)]="studentAddress" formControlName="text">
+              <small id="studentAddressHelp" class="form-text text-muted"><i>Postal adddress, Street, City </i></small>
+            </div>
+
+            <div class="form-group">
+              <label for="studentHomeTelephone">Home Telephone Number</label>
+              <input type="number" class="form-control" id="studentHomeTelephone" aria-describedby="studentHomeTelephoneHelp"
+                placeholder="Type telephone number here" maxlength="10" [(ngModel)]="studentHomeTelephone"
+                formControlName="numbersOnly">
+              <!-- <small id="studentHomeTelephoneHelp" class="form-text text-muted"><i>Area code 223... </i></small> -->
+            </div>
+
+            <br><br>
+
+            <h6 class="text-center">&mdash; Father's details &mdash;</h6>
+
+            <div class="form-group">
+              <label for="studentFathersName">Father's Name</label>
+              <input type="text" class="form-control" id="studentFathersName" aria-describedby="studentFathersNameHelp"
+                placeholder="Type father's name here" [(ngModel)]="studentFathersName" formControlName="textOnly">
+              <!-- <small id="studentFathersNameHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentFathersNIC">NIC</label>
+                  <input type="text" class="form-control" id="studentFathersNIC" aria-describedby="studentFathersNICHelp"
+                    placeholder="Type father's NIC here" maxlength="12" [(ngModel)]="studentFathersNIC" formControlName="text">
+                  <!-- <small id="studentFathersNICHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentFathersOccupation">Occupation</label>
+                  <input type="text" class="form-control" id="studentFathersOccupation" aria-describedby="studentFathersOccupationHelp"
+                    placeholder="Type father's occupation here" [(ngModel)]="studentFathersOccupation" formControlName="textOnly">
+                  <!-- <small id="studentFathersOccupationHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <label for="studentFathersOffiAddr">Official Address</label>
+              <input type="text" class="form-control" id="studentFathersOffiAddr" aria-describedby="studentFathersOffiAddrHelp"
+                placeholder="Type father's office address here" [(ngModel)]="studentFathersOffiAddr" formControlName="text">
+              <!-- <small id="studentFathersOffiAddrHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentFathersMobileNumber">Mobile number</label>
+                  <input type="number" class="form-control" id="studentFathersMobileNumber" aria-describedby="studentFathersMobileNumberHelp"
+                    placeholder="Type father's mobile number here" maxlength="10" [(ngModel)]="studentFathersMobileNumber"
+                    formControlName="numbersOnly">
+                  <!-- <small id="studentFathersMobileNumberHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentFathersOfficeNumber">Office Telephone Number</label>
+                  <input type="number" class="form-control" id="studentFathersOfficeNumber" aria-describedby="studentFathersOfficeNumberHelp"
+                    placeholder="Type father's office telephone number here" maxlength="10" [(ngModel)]="studentFathersOfficeNumber"
+                    formControlName="numbersOnly">
+                  <!-- <small id="studentFathersOfficeNumberHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+            </div>
+
+            <br><br>
+
+            <h6 class="text-center">&mdash; Mother's details &mdash;</h6>
+
+            <div class="form-group">
+              <label for="studentMothersName">Mother's Name</label>
+              <input type="text" class="form-control" id="studentMothersName" aria-describedby="studentMothersNameHelp"
+                placeholder="Type mother's name here" [(ngModel)]="studentMothersName" formControlName="textOnly">
+              <!-- <small id="studentMothersNameHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentMothersNIC">NIC</label>
+                  <input type="text" class="form-control" id="studentMothersNIC" aria-describedby="studentMothersNICHelp"
+                    placeholder="Type mother's NIC here" maxlength="12" [(ngModel)]="studentMothersNIC" formControlName="text">
+                  <!-- <small id="studentMothersNICHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentMothersOccupation">Occupation</label>
+                  <input type="text" class="form-control" id="studentMothersOccupation" aria-describedby="studentMothersOccupationHelp"
+                    placeholder="Type mother's occupation here" [(ngModel)]="studentMothersOccupation" formControlName="textOnly">
+                  <!-- <small id="studentMothersOccupationHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+            </div>
+
+
+
+            <div class="form-group">
+              <label for="studentMothersOffiAddr">Official Address</label>
+              <input type="text" class="form-control" id="studentMothersOffiAddr" aria-describedby="studentMothersOffiAddrHelp"
+                placeholder="Type mothers's office address here" [(ngModel)]="studentMothersOffiAddr" formControlName="text">
+              <!-- <small id="studentMothersOffiAddrHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentMothersMobileNumber">Mobile Number</label>
+                  <input type="number" class="form-control" id="studentMothersMobileNumber" aria-describedby="studentMothersMobileNumberHelp"
+                    placeholder="Type mother's mobile number here" maxlength="10" [(ngModel)]="studentMothersMobileNumber"
+                    formControlName="numbersOnly">
+                  <!-- <small id="studentMothersMobileNumberHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentMothersOfficeNumber">Office Telephone Number</label>
+                  <input type="number" class="form-control" id="studentMothersOfficeNumber" aria-describedby="studentMothersOfficeNumberHelp"
+                    placeholder="Type mother's office telephone number here" maxlength="10" [(ngModel)]="studentMothersOfficeNumber"
+                    formControlName="numbersOnly">
+                  <!-- <small id="studentMothersOfficeNumberHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+            </div>
+
+            <br> <br>
+
+            <h6 class="text-center">&mdash; Information of people other than a family member who would be picking up
+              the
+              child
+              &mdash;</h6>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPickingUppersName1">Name</label>
+                  <input type="text" class="form-control" id="studentPickingUppersName1" aria-describedby="studentPickingUppersNameHelp1"
+                    placeholder="Type name here" [(ngModel)]="studentPickingUppersName1" formControlName="textOnly">
+                  <!-- <small id="studentPickingUppersNameHelp1" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPickingUppersNIC1">NIC No</label>
+                  <input type="text" class="form-control" id="studentPickingUppersNIC1" aria-describedby="studentPickingUppersNICHelp1"
+                    placeholder="Type NIC here" maxlength="12" [(ngModel)]="studentPickingUppersNIC1" formControlName="text">
+                  <!-- <small id="studentPickingUppersNICHelp1" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPickingUppersName2">Name</label>
+                  <input type="text" class="form-control" id="studentPickingUppersName2" aria-describedby="studentPickingUppersNameHelp2"
+                    placeholder="Type name here" [(ngModel)]="studentPickingUppersName2" formControlName="textOnly">
+                  <!-- <small id="studentPickingUppersNameHelp2" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPickingUppersNIC2">NIC no</label>
+                  <input type="text" class="form-control" id="studentPickingUppersNIC2" aria-describedby="studentPickingUppersNICHelp2"
+                    placeholder="Type NIC here" maxlength="12" [(ngModel)]="studentPickingUppersNIC2" formControlName="text">
+                  <!-- <small id="studentPickingUppersNICHelp2" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+            </div>
+
+
+            <br><br>
+
+            <h6 class="text-center">&mdash; Person to contact in emergency &mdash;</h6>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPersonToContactInEmergName">Name</label>
+                  <input type="text" class="form-control" id="studentPersonToContactInEmergName" aria-describedby="studentPersonToContactInEmergNameHelp"
+                    placeholder="Type name here" [(ngModel)]="studentPersonToContactInEmergName" formControlName="textOnly">
+                  <!-- <small id="studentPersonToContactInEmergNameHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="studentPersonToContactInEmergRelationship">Relationship</label>
+                  <input type="text" class="form-control" id="studentPersonToContactInEmergRelationship"
+                    aria-describedby="studentPersonToContactInEmergRelationshipHelp" placeholder="Type relationship here"
+                    [(ngModel)]="studentPersonToContactInEmergRelationship" formControlName="textOnly">
+                  <!-- <small id="studentPersonToContactInEmergRelationshipHelp" class="form-text text-muted"><i>* </i></small> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="studentPersonToContactInEmergAddr">Address</label>
+              <input type="text" class="form-control" id="studentPersonToContactInEmergAddr" aria-describedby="studentPersonToContactInEmergAddrHelp"
+                placeholder="Type address here" [(ngModel)]="studentPersonToContactInEmergAddr" formControlName="text">
+              <!-- <small id="studentPersonToContactInEmergAddrHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+            <div class="form-group">
+              <label for="studentPersonToContactInEmergTelephone">Telephone</label>
+              <input type="number" class="form-control" id="studentPersonToContactInEmergTelephone" aria-describedby="formControlContactNumbers"
+                placeholder="Type telephone number here" maxlength="10" [(ngModel)]="studentPersonToContactInEmergTelephone"
+                formControlName="numbersOnly">
+              <!-- <small id="studentPersonToContactInEmergTelephoneHelp" class="form-text text-muted"><i>* </i></small> -->
+            </div>
+
+
+
+            <br><br>
+
+
+            <h6 class="text-center noselect">&mdash; Describe physical problem/s of the child (if any) &mdash;</h6>
+
+            <div class="row container">
+              <div class="noselect">
+                <div class="form-check checkbox-physical-problem" *ngFor="let item of illnessesTypes">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="item.status" formControlName="illnessesType">
+                    {{item.illnessesName}}
+                    <span class="form-check-sign">
+                      <span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+
+            <br><br>
+
+            <h6 class="text-center noselect">&mdash; For office use only &mdash;</h6>
+
+            <div class="form-check form-check-radio gender">
+              <div class="row noselect text-center">
+
+                <div class="col-md">
+                  <label class="form-check-label dc-rad">
+                    <input class="form-check-input" type="radio" id="officeWithDC" value="true" [(ngModel)]="officeWithDC"
+                      formControlName="officeWithDC">
+                    School <b class="text-black">with</b> Day Care Facility
+                    <span class="circle">
+                      <span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+
+                <div class="col-md">
+                  <label class="form-check-label dc-rad">
+                    <input class="form-check-input" type="radio" id="officeWithDC" value="false" [(ngModel)]="officeWithDC"
+                      formControlName="officeWithDC">
+                    School <b class="text-black">without</b> Day Care Facility
+                    <span class="circle">
+                      <span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="officeMonth">Month</label>
+                  <select class="form-control" id="officeMonth" [(ngModel)]="officeMonth" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Month</option>
+                    <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="officeYear">Year</label>
+                  <select class="form-control" id="officeYear" [(ngModel)]="officeYear" formControlName="dropdown">
+                    <option disabled selected value="">Click to Select Year</option>
+                    <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="officeStudClass">Class</label>
+                  <select class="form-control" id="officeStudClass" [(ngModel)]="officeStudClass" formControlName="dropdown">
+                    <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
+                    <option *ngFor="let item of classes" value="{{item}}">{{item}}</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+
+
+          </div>
+        </form>
+
+
+      </div>
+
+
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="reset" class="btn btn-danger" (click)="resetForm()">Clear</button>
+        &nbsp;
+        <button type="submit" class="btn btn-info">Save Changes</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
