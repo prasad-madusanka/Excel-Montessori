@@ -10,6 +10,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { NewStudentComponent } from './modals/new-student/new-student.component';
 import { EditStudentComponent } from './modals/edit-student/edit-student.component';
 import { ModalUpdateStudentComponent } from './modals/modal-update-student/modal-update-student.component';
+import { AdminSettingsComponent } from './modals/admin-settings/admin-settings.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ModalUpdateStudentComponent } from './modals/modal-update-student/modal
     NewStudentComponent,
     EditStudentComponent,
     ModalUpdateStudentComponent,
+    AdminSettingsComponent,
   ],
   imports: [
     BrowserModule,
