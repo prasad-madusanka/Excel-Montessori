@@ -84,23 +84,22 @@
     <div class="card">
       <div class="card-header card-header-text card-header-rose">
         <div class="card-text">
-          <h5 class="card-title text-center">Change Fees</h5>
+          <h5 class="card-title text-center">Reports</h5>
         </div>
       </div>
       <div class="card-body">
-        Using this feature user can change Fees, ex: Admission fess,
-        Monthly Fees & etc.
+        Using this feature user can view Reports, ex: Fees payment & etc.
 
         <ul>
-          <li>Click <b>'Change Fess'</b> Button</li>
+          <li>Click <b>'View Reports'</b> Button</li>
           <li>Select fee category & change value</li>
           <li>Click <b>'Save'</b> button</li>
           <li>Click <b>'Close'</b> Button to close</li>
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-rose btn-round">
-            <i class="material-icons">attach_money</i> Change Fees
+          <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#modalReports">
+            <i class="material-icons">attach_money</i> View Reports
           </button>
         </div>
 
@@ -112,23 +111,23 @@
     <div class="card">
       <div class="card-header card-header-text card-header-warning">
         <div class="card-text">
-          <h5 class="card-title text-center">Add System Options</h5>
+          <h5 class="card-title text-center">System Entries</h5>
         </div>
       </div>
       <div class="card-body">
-        Using this feature user can add new classes & edit/modify, ex: Classes,
+        Using this feature user can add new classes & edit/delete, ex: Classes,
         Events & etc.
 
         <ul>
-          <li>Click <b>'Add Options'</b> Button</li>
+          <li>Click <b>'Manage Entries'</b> Button</li>
           <li>Enter new options</li>
           <li>Click <b>'Save'</b> button</li>
           <li>Click <b>'Close'</b> Button to close</li>
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-warning btn-round">
-            <i class="material-icons">public</i>&nbsp; Add Options
+          <button class="btn btn-warning btn-round" data-toggle="modal" data-target="#modalSystemEntries">
+            <i class="material-icons">public</i>&nbsp; Manage Entries
           </button>
         </div>
 
@@ -172,3 +171,5 @@
 <app-new-student></app-new-student>
 <app-edit-student></app-edit-student>
 <app-admin-settings></app-admin-settings>
+<app-system-entries></app-system-entries>
+<app-reports></app-reports>

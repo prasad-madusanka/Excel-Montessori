@@ -11,6 +11,8 @@ import { NewStudentComponent } from './modals/new-student/new-student.component'
 import { EditStudentComponent } from './modals/edit-student/edit-student.component';
 import { ModalUpdateStudentComponent } from './modals/modal-update-student/modal-update-student.component';
 import { AdminSettingsComponent } from './modals/admin-settings/admin-settings.component';
+import { SystemEntriesComponent } from './modals/system-entries/system-entries.component';
+import { ReportsComponent } from './modals/reports/reports.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { AdminSettingsComponent } from './modals/admin-settings/admin-settings.c
     EditStudentComponent,
     ModalUpdateStudentComponent,
     AdminSettingsComponent,
+    SystemEntriesComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,

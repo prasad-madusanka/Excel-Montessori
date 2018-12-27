@@ -1,0 +1,50 @@
+.modal-lg{
+    margin-top: 45px;
+    min-width: 80% !important;
+}
+
+.tab-pills{
+    padding-bottom: 4rem;
+}
+
+.mi-pills {
+    display: inline !important;
+    vertical-align: sub;
+    font-size: 18px !important;
+}
+
+.nav-link{
+    span{
+        vertical-align: 1px;
+    }
+}
+
+tbody {
+    height: 8rem;
+    display: block;
+    overflow: auto;
+}
+
+
+thead, tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+
+.user-table td{
+    vertical-align: middle;
+    width: 60%;
+}
+
+.create-user-actions{
+    padding-top: 1rem;
+}
+
+.i-vertical-sub{
+    vertical-align: sub;
+}
+
+.charge-categories{
+    padding-top: 6rem;
+}

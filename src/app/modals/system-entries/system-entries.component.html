@@ -1,0 +1,191 @@
+<div class="modal fade" id="modalSystemEntries" tabindex="-1" role="dialog" aria-labelledby="modalSystemEntriesLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalSystemEntriesLabel">System Entries</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+
+        <div class="container">
+          <div class="row tab-pills">
+            <div class="col-md-12">
+              <ul class="nav nav-pills nav-pills-success justify-content-center" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist" aria-expanded="true">
+                      <i class="material-icons mi-pills">money_off</i>&nbsp;<span>Non Payment Entries</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false">
+                      <i class="material-icons mi-pills"> attach_money</i>&nbsp;<span>Payment Entries</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content tab-space">
+
+            <div class="tab-pane active" id="link1" aria-expanded="true">
+
+              <div id="classDetails">
+                <table class="user-table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">Name</th>
+                      <th scope="col">Year</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mark</td>
+                      <td>@mdo</td>
+                      <td>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword">Edit</button>
+                        &nbsp;
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword">Delete</button>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="addClasses">
+                <div class="row">
+
+                  <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label for="systemEntriesClassName">Class name</label>
+                      <input type="text" class="form-control" id="systemEntriesClassName" aria-describedby="systemEntriesClassNameHelp"
+                        placeholder="Enter class name">
+                      <!-- <small id="systemEntriesClassNameHelp" class="form-text text-muted">Enter the class name</small> -->
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-md-4">
+
+                    <div class="form-group">
+                      <label for="systemEntriesClassYear">Year</label>
+                      <input type="number" class="form-control" id="systemEntriesClassYear" aria-describedby="systemEntriesClassYearHelp"
+                        placeholder="Enter the year">
+                      <!-- <small id="systemEntriesClassYearHelp" class="form-text text-muted">Enter the year of the class</small> -->
+                    </div>
+
+                  </div>
+
+
+                  <div class="col-md-4">
+
+
+                    <div class="create-user-actions text-center">
+                      <button class="btn btn-success btn-round btn-sm">Save</button>
+                      &nbsp;
+                      <button class="btn btn-warning btn-round btn-sm">Clear</button>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="link2" aria-expanded="false">
+
+              <div id="chargeCategoryDetails">
+                <table class="user-table text-center">
+                  <thead>
+                    <tr>
+                      <th scope="col">Category Name</th>
+                      <th scope="col">Year</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Mark</td>
+                      <td>@mdo</td>
+                      <td>@mdo</td>
+                      <td>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword">Edit</button>
+                        &nbsp;
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword">Delete</button>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="addChargeCategories">
+                <div class="row">
+
+                  <div class="col-md-3">
+
+                    <div class="form-group">
+                      <label for="seCategoryName">Category name</label>
+                      <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
+                        placeholder="Enter category">
+                      <small id="seCategoryNameHelp" class="form-text text-muted">Type Category name. eg - New year</small>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="seAmount">Amount</label>
+                      <input type="text" class="form-control" id="seAmount" aria-describedby="seAmountHelp" placeholder="Enter smount">
+                      <small id="seAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="seYear">Year</label>
+                      <input type="text" class="form-control" id="seYear" aria-describedby="seYearHelp" placeholder="Enter year">
+                      <small id="seYearHelp" class="form-text text-muted">Type amount effective year</small>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="create-user-actions text-center">
+                      <button class="btn btn-success btn-round btn-sm">Save</button>
+                      &nbsp;
+                      <button class="btn btn-warning btn-round btn-sm">Clear</button>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
