@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalSystemEntries" tabindex="-1" role="dialog" aria-labelledby="modalSystemEntriesLabel"
+<div class="modal fade noselect" id="modalSystemEntries" tabindex="-1" role="dialog" aria-labelledby="modalSystemEntriesLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -18,12 +18,12 @@
               <ul class="nav nav-pills nav-pills-success justify-content-center" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist" aria-expanded="true">
-                      <i class="material-icons mi-pills">money_off</i>&nbsp;<span>Non Payment Entries</span>
+                    <i class="material-icons mi-pills">money_off</i>&nbsp;<span>Non Payment Entries</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false">
-                      <i class="material-icons mi-pills"> attach_money</i>&nbsp;<span>Payment Entries</span>
+                    <i class="material-icons mi-pills"> attach_money</i>&nbsp;<span>Payment Entries</span>
                   </a>
                 </li>
               </ul>
@@ -48,9 +48,9 @@
                       <td>Mark</td>
                       <td>@mdo</td>
                       <td>
-                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword">Edit</button>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditNonPaymentEntries">Edit</button>
                         &nbsp;
-                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword">Delete</button>
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning">Delete</button>
                       </td>
                     </tr>
 
@@ -120,9 +120,9 @@
                       <td>@mdo</td>
                       <td>@mdo</td>
                       <td>
-                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword">Edit</button>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditPaymentEntries">Edit</button>
                         &nbsp;
-                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword">Delete</button>
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning">Delete</button>
                       </td>
                     </tr>
 
@@ -185,6 +185,136 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
         <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalEditNonPaymentEntries" tabindex="-1" role="dialog" aria-labelledby="modalEditNonPaymentEntriesLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditNonPaymentEntriesLabel">Non-Payment Entries</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="seClassName">Class Name</label>
+              <input type="text" class="form-control" id="seClassName" aria-describedby="seClassNameHelp" placeholder="Enter class name">
+              <small id="seClassNameHelp" class="form-text text-muted">Type class name</small>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="seClassYear">Year</label>
+              <input type="text" class="form-control" id="seClassYear" aria-describedby="seClassYearHelp" placeholder="Enter year">
+              <small id="seClassYearHelp" class="form-text text-muted">Type the year</small>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalEditPaymentEntries" tabindex="-1" role="dialog" aria-labelledby="modalEditPaymentEntriesLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg-custom" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditPaymentEntriesLabel">Payment Entries</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="seCategoryName">Category Name</label>
+              <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
+                placeholder="Enter category name">
+              <small id="seCategoryNameHelp" class="form-text text-muted">Type category name</small>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="seCategoryAmount">Amount</label>
+              <input type="number" class="form-control" id="seCategoryAmount" aria-describedby="seCategoryAmountHelp"
+                placeholder="Enter amount">
+              <small id="seCategoryAmountHelp" class="form-text text-muted">Type the amount</small>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="seCategoryYear">Year</label>
+              <input type="number" class="form-control" id="seCategoryYear" aria-describedby="seCategoryYearHelp"
+                placeholder="Enter year">
+              <small id="seCategoryYearHelp" class="form-text text-muted">Type the year</small>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalDeleteEntriesWarning" tabindex="-1" role="dialog" aria-labelledby="modalDeleteEntriesWarningLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="modalDeleteEntriesWarningLabel">
+          <b>
+            <i class="material-icons i-vertical-sub">warning</i>&nbsp;
+            Are you sure you want to delete entry?
+          </b>
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action cannot be undone</p>
+        <p>Entry name: <b>{{dEntry}}</b> &nbsp;&nbsp;&nbsp; Type: <b>{{dEntryType}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger">Yes, Im sure</button>
       </div>
     </div>
   </div>

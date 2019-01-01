@@ -1,16 +1,16 @@
-.title{
+.title {
     max-width: auto;
     padding-top: 5rem;
     margin-top: 0px !important;
 }
 
-.card-title{
-    span{
+.card-title {
+    span {
         vertical-align: 5px;
     }
 }
 
-.card{
+.card {
     max-width: 25rem;
 }
 
@@ -18,6 +18,12 @@
     background: #47af4c !important;
 }
 
-.col-md-4{
+.col-md-4 {
     padding-top: 3rem;
+}
+
+.login-fail {
+    p {
+        font-size: 0.6rem;
+    }
 }

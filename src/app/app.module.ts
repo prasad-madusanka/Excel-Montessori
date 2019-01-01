@@ -13,6 +13,7 @@ import { ModalUpdateStudentComponent } from './modals/modal-update-student/modal
 import { AdminSettingsComponent } from './modals/admin-settings/admin-settings.component';
 import { SystemEntriesComponent } from './modals/system-entries/system-entries.component';
 import { ReportsComponent } from './modals/reports/reports.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ReportsComponent } from './modals/reports/reports.component';
     AdminSettingsComponent,
     SystemEntriesComponent,
     ReportsComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

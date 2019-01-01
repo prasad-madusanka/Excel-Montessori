@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SystemEntriesComponent implements OnInit {
 
+  dEntry: string = 'class 2018'
+  dEntryType: string = 'Payment'
+
   constructor() { }
 
   ngOnInit() {

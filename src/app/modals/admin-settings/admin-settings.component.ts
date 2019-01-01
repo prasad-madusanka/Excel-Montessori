@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminSettingsComponent implements OnInit {
 
+  dUsername: string = "prasad"
+
   constructor() { }
 
   ngOnInit() {

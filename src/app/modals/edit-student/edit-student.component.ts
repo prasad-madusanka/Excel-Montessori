@@ -9,6 +9,8 @@ declare var $: any
 })
 export class EditStudentComponent implements OnInit {
 
+  dStudentName: string = 'Prasad Madusanka'
+
   constructor() { }
 
   ngOnInit() {
