@@ -26,15 +26,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mark</td>
-                  <td>@mdo</td>
+                <tr *ngFor="let item of availableUsers; let recIndex = index">
+                  <td>{{item.name}}</td>
+                  <td>{{item.username}}</td>
                   <td>
-                    <button class="btn btn-primary btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword">Reset</button>
+                    <button class="btn btn-primary btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword"
+                      (click)="setCurrentRecordId(item._id)">Reset</button>
                     &nbsp;
-                    <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword">View</button>
+                    <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalAdminViewPassword"
+                      (click)="viewPassword(item.password)">View</button>
                     &nbsp;
-                    <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminUserDeleteWarning">Delete</button>
+                    <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalAdminUserDeleteWarning"
+                      (click)="setCurrentRecordDetail(item._id, recIndex, item.username)">Delete</button>
                   </td>
                 </tr>
 
@@ -46,45 +49,53 @@
           <div>
             <h6 class="h6">Create new user</h6>
 
-            <div class="row">
+
+            <form autocomplete="off">
+              <div class="row">
 
 
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="aoName">Name</label>
-                  <input type="text" class="form-control" id="aoName" aria-describedby="aoNameHelp" placeholder="Enter Name">
-                  <small id="aoNameHelp" class="form-text text-muted">Type new users <b>name</b></small>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="aoUsername">Username</label>
-                  <input type="text" class="form-control" id="aoUsername" aria-describedby="aoUsernameHelp" placeholder="Enter username">
-                  <small id="aoUsernameHelp" class="form-text text-muted">Type new users <b>username</b></small>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="form-group">
-                  <label for="aoPassword">Password</label>
-                  <input type="text" class="form-control" id="aoPassword" aria-describedby="aoPasswordHelp" placeholder="Enter password">
-                  <small id="aoPasswordHelp" class="form-text text-muted">Type new users <b>password</b></small>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-
-                <div class="create-user-actions text-center">
-                  <button class="btn btn-success btn-round btn-sm">Save</button>
-                  &nbsp;
-                  <button class="btn btn-warning btn-round btn-sm">Clear</button>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="aoName">Name</label>
+                    <input type="text" class="form-control" id="aoName" aria-describedby="aoNameHelp" placeholder="Enter Name"
+                      [(ngModel)]="tName" name="name">
+                    <small id="aoNameHelp" class="form-text text-muted">Type new users <b>name</b></small>
+                  </div>
                 </div>
 
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="aoUsername">Username</label>
+                    <input type="text" class="form-control text-lowercase" id="aoUsername" aria-describedby="aoUsernameHelp"
+                      placeholder="Enter username" [(ngModel)]="tUsername" name="username">
+                    <small id="aoUsernameHelp" class="form-text text-muted">Type new users <b>username</b></small>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="aoPassword">Password</label>
+                    <input type="text" class="form-control" id="aoPassword" aria-describedby="aoPasswordHelp"
+                      placeholder="Enter password" [(ngModel)]="tPassword" name="password">
+                    <small id="aoPasswordHelp" class="form-text text-muted">Type new users <b>password</b></small>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+
+                  <div class="create-user-actions text-center">
+                    <button class="btn btn-success btn-round btn-sm" (click)="addUser()">Save</button>
+                    &nbsp;
+                    <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
+                  </div>
+
+                </div>
+
+
               </div>
 
+            </form>
 
-            </div>
           </div>
 
         </div>
@@ -94,8 +105,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        &nbsp;
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- &nbsp;
+        <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
@@ -120,7 +131,7 @@
             <div class="form-group">
               <label for="aoResetPassword">New password</label>
               <input type="text" class="form-control" id="aoResetPassword" aria-describedby="aoResetPasswordHelp"
-                placeholder="Enter new password">
+                placeholder="Enter new password" [(ngModel)]="tResetPassword1" name="resetPasswordReset">
               <small id="aoResetPasswordHelp" class="form-text text-muted">Type new password</small>
             </div>
           </div>
@@ -129,11 +140,15 @@
             <div class="form-group">
               <label for="aoResetPasswordRe">Retype</label>
               <input type="text" class="form-control" id="aoResetPasswordRe" aria-describedby="aoResetPasswordReHelp"
-                placeholder="Retype">
+                placeholder="Retype" [(ngModel)]="tResetPassword2" name="resetPasswordResetRetype">
               <small id="aoResetPasswordReHelp" class="form-text text-muted">Retype new password</small>
             </div>
           </div>
 
+        </div>
+
+        <div class="password-not-match">
+          <p class="h6 text-center">{{dPasswordDoesNotMatch}}</p>
         </div>
 
 
@@ -142,7 +157,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="resetPassword()">Save changes</button>
       </div>
     </div>
   </div>
@@ -164,7 +179,7 @@
         <div class="row">
 
           <div class="col-md-12">
-              <p class="h5 text-center"><b>h5. Bootstrap heading</b></p>
+            <p class="h5 text-center"><b>{{dPassword}}</b></p>
           </div>
         </div>
 
@@ -200,7 +215,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes, Im sure</button>
+        <button type="button" class="btn btn-danger" (click)="deleteUser()" data-dismiss="modal">Yes, Im sure</button>
       </div>
     </div>
   </div>

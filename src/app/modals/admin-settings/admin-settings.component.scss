@@ -28,3 +28,10 @@ thead, tbody tr {
 .i-vertical-sub{
     vertical-align: sub;
 }
+
+.password-not-match {
+    p {
+        font-size: 0.6rem;
+        color: #f44336;
+    }
+}

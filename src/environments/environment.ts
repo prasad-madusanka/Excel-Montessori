@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  //End points
+  ADMIN_OPTIONS: 'http://localhost:3000/excel/users',
+  SE_NON_PAYMENT: 'http://localhost:3000/excel/entries/non-payment',
+  SE_PAYMENT: 'http://localhost:3000/excel/entries/payment',
+
 };
 
 /*

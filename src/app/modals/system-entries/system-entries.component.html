@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalSystemEntriesLabel">System Entries</h5>
+        <h5 class="modal-title" id="modalSystemEntriesLabel"><b>System Entries</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -17,12 +17,13 @@
             <div class="col-md-12">
               <ul class="nav nav-pills nav-pills-success justify-content-center" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist" aria-expanded="true">
+                  <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist" aria-expanded="true"
+                    (click)="setEntryType('Non-Payment')">
                     <i class="material-icons mi-pills">money_off</i>&nbsp;<span>Non Payment Entries</span>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false">
+                  <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false" (click)="setEntryType('Payment')">
                     <i class="material-icons mi-pills"> attach_money</i>&nbsp;<span>Payment Entries</span>
                   </a>
                 </li>
@@ -44,13 +45,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Mark</td>
-                      <td>@mdo</td>
+                    <tr *ngFor="let item of dNonPaymentEntries; let recIndex = index">
+                      <td>{{item.entryName}}</td>
+                      <td>{{item.entryYear}}</td>
                       <td>
-                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditNonPaymentEntries">Edit</button>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditNonPaymentEntries"
+                          (click)="setCurrentRecordDetail(item._id, recIndex, item)">Edit</button>
                         &nbsp;
-                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning">Delete</button>
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning"
+                          (click)="setCurrentRecordDetail(item._id, recIndex, item)">Delete</button>
                       </td>
                     </tr>
 
@@ -59,45 +62,40 @@
               </div>
 
               <div id="addClasses">
-                <div class="row">
+                <form autocomplete="off">
+                  <div class="row">
 
-                  <div class="col-md-4">
-
-                    <div class="form-group">
-                      <label for="systemEntriesClassName">Class name</label>
-                      <input type="text" class="form-control" id="systemEntriesClassName" aria-describedby="systemEntriesClassNameHelp"
-                        placeholder="Enter class name">
-                      <!-- <small id="systemEntriesClassNameHelp" class="form-text text-muted">Enter the class name</small> -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="systemEntriesClassName">Class name</label>
+                        <input type="text" class="form-control" id="systemEntriesClassName" aria-describedby="systemEntriesClassNameHelp"
+                          placeholder="Enter class name" [(ngModel)]="tNonPaymentClassName" name="npClassName">
+                        <!-- <small id="systemEntriesClassNameHelp" class="form-text text-muted">Enter the class name</small> -->
+                      </div>
                     </div>
 
-                  </div>
 
-
-                  <div class="col-md-4">
-
-                    <div class="form-group">
-                      <label for="systemEntriesClassYear">Year</label>
-                      <input type="number" class="form-control" id="systemEntriesClassYear" aria-describedby="systemEntriesClassYearHelp"
-                        placeholder="Enter the year">
-                      <!-- <small id="systemEntriesClassYearHelp" class="form-text text-muted">Enter the year of the class</small> -->
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="systemEntriesClassYear">Year</label>
+                        <input type="number" class="form-control" id="systemEntriesClassYear" aria-describedby="systemEntriesClassYearHelp"
+                          placeholder="Enter the year" [(ngModel)]="tNonPaymentYear" name="npYear">
+                        <!-- <small id="systemEntriesClassYearHelp" class="form-text text-muted">Enter the year of the class</small> -->
+                      </div>
                     </div>
 
-                  </div>
 
-
-                  <div class="col-md-4">
-
-
-                    <div class="create-user-actions text-center">
-                      <button class="btn btn-success btn-round btn-sm">Save</button>
-                      &nbsp;
-                      <button class="btn btn-warning btn-round btn-sm">Clear</button>
+                    <div class="col-md-4">
+                      <div class="create-user-actions text-center">
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addNonPaymentEntry()">Save</button>
+                        &nbsp;
+                        <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
+                      </div>
                     </div>
 
+
                   </div>
-
-                </div>
-
+                </form>
               </div>
 
             </div>
@@ -115,14 +113,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Mark</td>
-                      <td>@mdo</td>
-                      <td>@mdo</td>
+                    <tr *ngFor="let item of dPaymentEntries; let recIndex = index">
+                      <td>{{item.entryName}}</td>
+                      <td>{{item.entryAmount}}</td>
+                      <td>{{item.entryYear}}</td>
                       <td>
-                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditPaymentEntries">Edit</button>
+                        <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditPaymentEntries"
+                          (click)="setCurrentRecordDetail(item._id, recIndex, item)">Edit</button>
                         &nbsp;
-                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning">Delete</button>
+                        <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteEntriesWarning"
+                          (click)="setCurrentRecordDetail(item._id, recIndex, item)">Delete</button>
                       </td>
                     </tr>
 
@@ -131,45 +131,46 @@
               </div>
 
               <div id="addChargeCategories">
-                <div class="row">
+                <form autocomplete="off">
+                  <div class="row">
 
-                  <div class="col-md-3">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="seCategoryName">Category name</label>
+                        <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
+                          placeholder="Enter category" [(ngModel)]="tPaymentCategory" name="pEntryCategory">
+                        <small id="seCategoryNameHelp" class="form-text text-muted">Type Category name. eg - New year</small>
+                      </div>
+                    </div>
 
-                    <div class="form-group">
-                      <label for="seCategoryName">Category name</label>
-                      <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
-                        placeholder="Enter category">
-                      <small id="seCategoryNameHelp" class="form-text text-muted">Type Category name. eg - New year</small>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="seAmount">Amount</label>
+                        <input type="number" class="form-control" id="seAmount" aria-describedby="seAmountHelp"
+                          placeholder="Enter smount" [(ngModel)]="tPaymentAmount" name="pEntryAmount">
+                        <small id="seAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="seYear">Year</label>
+                        <input type="number" class="form-control" id="seYear" aria-describedby="seYearHelp" placeholder="Enter year"
+                          [(ngModel)]="tPaymentYear" name="pEntryYear">
+                        <small id="seYearHelp" class="form-text text-muted">Type amount effective year</small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="create-user-actions text-center">
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addPaymentEntry()">Save</button>
+                        &nbsp;
+                        <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
+                      </div>
                     </div>
 
                   </div>
-
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="seAmount">Amount</label>
-                      <input type="text" class="form-control" id="seAmount" aria-describedby="seAmountHelp" placeholder="Enter smount">
-                      <small id="seAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="seYear">Year</label>
-                      <input type="text" class="form-control" id="seYear" aria-describedby="seYearHelp" placeholder="Enter year">
-                      <small id="seYearHelp" class="form-text text-muted">Type amount effective year</small>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="create-user-actions text-center">
-                      <button class="btn btn-success btn-round btn-sm">Save</button>
-                      &nbsp;
-                      <button class="btn btn-warning btn-round btn-sm">Clear</button>
-                    </div>
-                  </div>
-
-                </div>
-
+                </form>
               </div>
 
             </div>
@@ -183,8 +184,8 @@
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        &nbsp;
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- &nbsp;
+        <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
@@ -208,7 +209,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="seClassName">Class Name</label>
-              <input type="text" class="form-control" id="seClassName" aria-describedby="seClassNameHelp" placeholder="Enter class name">
+              <input type="text" class="form-control" id="seClassName" aria-describedby="seClassNameHelp" placeholder="Enter class name"
+                [(ngModel)]="tUpdateNonPaymentClassName" name="updateNPClassName">
               <small id="seClassNameHelp" class="form-text text-muted">Type class name</small>
             </div>
           </div>
@@ -216,7 +218,8 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="seClassYear">Year</label>
-              <input type="text" class="form-control" id="seClassYear" aria-describedby="seClassYearHelp" placeholder="Enter year">
+              <input type="number" class="form-control" id="seClassYear" aria-describedby="seClassYearHelp" placeholder="Enter year"
+                [(ngModel)]="tUpdateNonPaymentClassYear" name="updateNPClassYear">
               <small id="seClassYearHelp" class="form-text text-muted">Type the year</small>
             </div>
           </div>
@@ -229,7 +232,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateNonPaymentEntry()">Save
+          changes</button>
       </div>
     </div>
   </div>
@@ -254,7 +258,7 @@
             <div class="form-group">
               <label for="seCategoryName">Category Name</label>
               <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
-                placeholder="Enter category name">
+                placeholder="Enter category name" [(ngModel)]="tUpdatePaymentCategory" name="updatePCategory">
               <small id="seCategoryNameHelp" class="form-text text-muted">Type category name</small>
             </div>
           </div>
@@ -263,7 +267,7 @@
             <div class="form-group">
               <label for="seCategoryAmount">Amount</label>
               <input type="number" class="form-control" id="seCategoryAmount" aria-describedby="seCategoryAmountHelp"
-                placeholder="Enter amount">
+                placeholder="Enter amount" [(ngModel)]="tUpdatePaymentAmount" name="updatePAmount">
               <small id="seCategoryAmountHelp" class="form-text text-muted">Type the amount</small>
             </div>
           </div>
@@ -272,7 +276,7 @@
             <div class="form-group">
               <label for="seCategoryYear">Year</label>
               <input type="number" class="form-control" id="seCategoryYear" aria-describedby="seCategoryYearHelp"
-                placeholder="Enter year">
+                placeholder="Enter year" [(ngModel)]="tUpdatePaymentYear" name="updatePYear">
               <small id="seCategoryYearHelp" class="form-text text-muted">Type the year</small>
             </div>
           </div>
@@ -285,7 +289,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updatePaymentEntry()">Save changes</button>
       </div>
     </div>
   </div>
@@ -310,11 +314,11 @@
       </div>
       <div class="modal-body">
         <p>This action cannot be undone</p>
-        <p>Entry name: <b>{{dEntry}}</b> &nbsp;&nbsp;&nbsp; Type: <b>{{dEntryType}}</b></p>
+        <p>Entry name: <b>{{dEntryDetail.entryName}}</b> &nbsp;&nbsp;&nbsp; Type: <b>{{dEntryType}}</b></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes, Im sure</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteEntry()">Yes, Im sure</button>
       </div>
     </div>
   </div>
