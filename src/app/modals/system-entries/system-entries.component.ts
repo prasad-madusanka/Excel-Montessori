@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../../../services/system-entries/entries.service'
 
+declare var $: any
+
 @Component({
   selector: 'app-system-entries',
   templateUrl: './system-entries.component.html',
@@ -8,10 +10,14 @@ import { EntriesService } from '../../../services/system-entries/entries.service
 })
 export class SystemEntriesComponent implements OnInit {
 
+  schoolFeeCategories: string[] = []
+
   dEntryDetail = {
     '_id': '', 'entryName': '', 'entryYear': 0, 'entryAmount': 0
   }
   dEntryType: string = 'Non-Payment'
+  classAvailability: string = '- No class found -'
+  isSchool: boolean = false
 
   dNonPaymentEntries: any = []
   dPaymentEntries: any = []
@@ -26,21 +32,29 @@ export class SystemEntriesComponent implements OnInit {
 
   tPaymentCategory: string
   tPaymentAmount: number
-  tPaymentYear: number
+  tPaymentClass: string = ''
   tUpdatePaymentCategory: string
   tUpdatePaymentAmount: number
-  tUpdatePaymentYear: number
+  tUpdatePaymentClass: string = ''
+
+  tSchoolPaymentType: string = ''
+  tSchoolPaymentAmount: number
+  tSchoolPaymentYear: number
+  tSchoolPaymentClass: string = ''
 
 
   constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
+
+    this.schoolFeeCategories = ['School only', 'School with Day Care', 'Admission - School only', 'Admission - School with Day Care']
+
+    this.handleModalScrolling()
     this.getNonPaymentEntries()
     this.getPaymentEntries()
 
 
   }
-
 
   setCurrentRecordDetail(id, recIndex, data) {
     this.recordId = id
@@ -53,7 +67,8 @@ export class SystemEntriesComponent implements OnInit {
     } else {
       this.tUpdatePaymentCategory = data.entryName
       this.tUpdatePaymentAmount = data.entryAmount
-      this.tUpdatePaymentYear = data.entryYear
+      this.tUpdatePaymentClass = data.entryClass
+      this.isSchool = data.isSchool
     }
 
 
@@ -68,6 +83,7 @@ export class SystemEntriesComponent implements OnInit {
   getNonPaymentEntries() {
     this.entriesService.getNonPaymentEntries().subscribe((data => {
       this.dNonPaymentEntries = data
+      this.isClassesAvailable()
     }))
   }
 
@@ -115,7 +131,8 @@ export class SystemEntriesComponent implements OnInit {
     var obj = {
       "entryName": this.tPaymentCategory,
       "entryAmount": this.tPaymentAmount,
-      "entryYear": this.tPaymentYear
+      "entryClass": this.tPaymentClass,
+      "isSchool": false
     }
 
     this.entriesService.addPaymentEntry(obj).subscribe((data => {
@@ -129,7 +146,7 @@ export class SystemEntriesComponent implements OnInit {
       "eid": this.recordId,
       "entryName": this.tUpdatePaymentCategory,
       "entryAmount": this.tUpdatePaymentAmount,
-      "entryYear": this.tUpdatePaymentYear
+      "entryClass": this.tUpdatePaymentClass
     }
 
     this.entriesService.updatePaymentEntry(obj).subscribe((data => {
@@ -144,8 +161,47 @@ export class SystemEntriesComponent implements OnInit {
     })
   }
 
-  deleteEntry(){
-    (this.dEntryType === 'Payment')? this.deletePaymentEntry(): this.deletNonPaymentEntry()
+  deleteEntry() {
+    (this.dEntryType === 'Payment') ? this.deletePaymentEntry() : this.deletNonPaymentEntry()
   }
+
+  addScoolPaymentEntry() {
+
+    var obj = {
+      "entryName": this.tSchoolPaymentType,
+      "entryAmount": this.tSchoolPaymentAmount,
+      "entryClass": this.tSchoolPaymentClass,
+      "isSchool": true
+    }
+
+    this.entriesService.addPaymentEntry(obj).subscribe((data => {
+      this.dPaymentEntries.push(data)
+    }))
+
+  }
+
+  handleModalScrolling() {
+    $('.modal').on("hidden.bs.modal", function (e) {
+      if ($('.modal:visible').length) {
+        $('.modal-backdrop').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) - 10);
+        $('body').addClass('modal-open');
+      }
+    }).on("show.bs.modal", function (e) {
+      if ($('.modal:visible').length) {
+        $('.modal-backdrop.in').first().css('z-index', parseInt($('.modal:visible').last().css('z-index')) + 10);
+        $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
+      }
+    });
+  }
+
+  isClassesAvailable() {
+
+    if (this.dNonPaymentEntries.length != 0) {
+      this.classAvailability = 'Click to Select Class'
+    } else {
+      this.classAvailability = '- No class found -'
+    }
+  }
+
 
 }

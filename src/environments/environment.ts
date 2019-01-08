@@ -10,6 +10,11 @@ export const environment = {
   SE_NON_PAYMENT: 'http://localhost:3000/excel/entries/non-payment',
   SE_PAYMENT: 'http://localhost:3000/excel/entries/payment',
 
+  SCHOOL_WITH_DAYCARE: 'School with Day Care',
+  SCHOOL_ONLY: 'School only',
+  ADMISSION_SCHOOL_ONLY: 'Admission - School only',
+  ADMISSION_SCHOOL_WITH_DAYCARE:'Admission - School with Day Care'
+
 };
 
 /*

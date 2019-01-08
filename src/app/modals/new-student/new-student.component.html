@@ -32,8 +32,6 @@
                   John</i></small>
             </div>
 
-
-
             <div class="row">
 
               <div class="col-md-4">
@@ -174,7 +172,6 @@
               <!-- <small id="studentFathersNameHelp" class="form-text text-muted"><i>* </i></small> -->
             </div>
 
-
             <div class="row">
 
               <div class="col-md-6">
@@ -261,8 +258,6 @@
 
             </div>
 
-
-
             <div class="form-group">
               <label for="studentMothersOffiAddr">Official Address</label>
               <input type="text" class="form-control" id="studentMothersOffiAddr" aria-describedby="studentMothersOffiAddrHelp"
@@ -343,7 +338,6 @@
               </div>
             </div>
 
-
             <br><br>
 
             <h6 class="text-center">&mdash; Person to contact in emergency &mdash;</h6>
@@ -385,16 +379,13 @@
               <!-- <small id="studentPersonToContactInEmergTelephoneHelp" class="form-text text-muted"><i>* </i></small> -->
             </div>
 
-
-
             <br><br>
-
 
             <h6 class="text-center noselect">&mdash; Describe physical problem/s of the child (if any) &mdash;</h6>
 
-            <div class="row container">
+            <div class="row">
               <div class="noselect">
-                <div class="form-check checkbox-physical-problem" *ngFor="let item of illnessesTypes">
+                <div class="form-check checkboxes" *ngFor="let item of illnessesTypes">
                   <label class="form-check-label">
                     <input class="form-check-input" type="checkbox" [(ngModel)]="item.status" formControlName="illnessesType">
                     {{item.illnessesName}}
@@ -416,8 +407,8 @@
 
                 <div class="col-md">
                   <label class="form-check-label dc-rad">
-                    <input class="form-check-input" type="radio" id="officeWithDC" value="true" [(ngModel)]="officeWithDC"
-                      formControlName="officeWithDC">
+                    <input class="form-check-input" type="radio" id="officeWithDC" value="School with Day Care"
+                      [(ngModel)]="officeWithDC" formControlName="officeWithDC" (change)="calculateRates()">
                     School <b class="text-black">with</b> Day Care Facility
                     <span class="circle">
                       <span class="check"></span>
@@ -427,8 +418,8 @@
 
                 <div class="col-md">
                   <label class="form-check-label dc-rad">
-                    <input class="form-check-input" type="radio" id="officeWithDC" value="false" [(ngModel)]="officeWithDC"
-                      formControlName="officeWithDC">
+                    <input class="form-check-input" type="radio" id="officeWithDC" value="School only" [(ngModel)]="officeWithDC"
+                      formControlName="officeWithDC" (change)="calculateRates()">
                     School <b class="text-black">without</b> Day Care Facility
                     <span class="circle">
                       <span class="check"></span>
@@ -465,12 +456,54 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="officeStudClass">Class</label>
-                  <select class="form-control" id="officeStudClass" [(ngModel)]="officeStudClass" formControlName="dropdown">
-                    <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
-                    <option *ngFor="let item of classes" value="{{item}}">{{item}}</option>
+                  <select class="form-control selectpicker" id="officeStudClass" [(ngModel)]="officeStudClass"
+                    formControlName="dropdown" (click)="calculateRates()" (ngModelChange)="calculateRates()">
+                    <option disabled selected value="">{{officeClassAvailability}}</option>
+                    <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
                   </select>
                 </div>
               </div>
+
+            </div>
+
+            <div class="row text-black noselect text-center">
+
+              <div class="col-md-6">
+                <h6 class="text-decoration-none rates">Monthly Fee: <b>{{schoolMonthlyFee}}</b> LKR</h6>
+              </div>
+
+              <div class="col-md-6">
+                <h6 class="text-decoration-none rates">Advance: <b>{{schoolAdmission}}</b> LKR</h6>
+              </div>
+
+            </div>
+
+            <div class="row text-black noselect text-center">
+              <div class="col-md-6">
+                <h6 class="text-decoration-none rates">Annual Fee: <b>{{schoolYearFee}}</b> LKR</h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="noselect">
+                <div class="form-check checkboxes" *ngFor="let item of extraPayments">
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" formControlName="illnessesType" (click)="calculateExtraPayments($event, item.entryAmount)">
+                    {{item.entryName}} &ndash; {{item.entryAmount}} Rs/=
+                    <span class="form-check-sign">
+                      <span class="check"></span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row text-black noselect text-center">
+
+              <div class="col-md-12">
+                <h6 class="text-decoration-none rates">Total Fees: <b>{{totalFee}}</b> LKR</h6>
+              </div>
+
 
             </div>
 
@@ -490,7 +523,7 @@
         <button type="reset" class="btn btn-danger" (click)="resetForm()">Clear</button>
         &nbsp;
         <button type="submit" class="btn btn-primary">Save Details</button>
-        
+
       </div>
     </div>
   </div>

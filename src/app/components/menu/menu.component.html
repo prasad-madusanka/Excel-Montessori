@@ -16,12 +16,12 @@
         <ul>
           <li>Click <b>'Add New Student'</b> Button</li>
           <li>Fill the pop-up form</li>
-          <li>Click <b>'Save'</b> Button</li>
+          <li>Click <b>'Save Details'</b> to Save</li>
           <li>Click <b>'Close'</b> Button to Close</li>
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-info btn-round" data-toggle="modal" data-target="#modalNewStudent">
+          <button class="btn btn-info btn-round" data-toggle="modal" data-target="#modalNewStudent" (click)="loadChild('/add-student')">
             <i class="material-icons">add</i> Add new Student
           </button>
         </div>
@@ -46,7 +46,7 @@
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-danger btn-round" data-toggle="modal" data-target="#modalEditStudent">
+          <button class="btn btn-danger btn-round" data-toggle="modal" data-target="#modalEditStudent" (click)="loadChild('/md-student')">
             <i class="material-icons">edit</i>
             Modify or
             <i class="material-icons">delete</i> Delete
@@ -73,7 +73,7 @@
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-success btn-round">
+          <button class="btn btn-success btn-round" (click)="loadChild('/payments')">
             <i class="material-icons">payment</i>&nbsp; Make Payment
           </button>
         </div>
@@ -100,7 +100,7 @@
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#modalReports">
+          <button class="btn btn-rose btn-round" data-toggle="modal" data-target="#modalReports" (click)="loadChild('/reports')">
             <i class="material-icons">attach_money</i> View Reports
           </button>
         </div>
@@ -128,7 +128,7 @@
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-warning btn-round" data-toggle="modal" data-target="#modalSystemEntries">
+          <button class="btn btn-warning btn-round" data-toggle="modal" data-target="#modalSystemEntries" (click)="loadChild('/system-entries')">
             <i class="material-icons">public</i>&nbsp; Manage Entries
           </button>
         </div>
@@ -155,7 +155,7 @@
         </ul>
 
         <div class="text-center">
-          <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalAdminSettings">
+          <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#modalAdminSettings" (click)="loadChild('/admin-settings')">
             <i class="material-icons">build</i>&nbsp; Admin Options
           </button>
         </div>
@@ -168,10 +168,10 @@
 </div>
 
 
+<router-outlet></router-outlet>
 
-
-<app-new-student></app-new-student>
+<!-- <app-new-student></app-new-student>
 <app-edit-student></app-edit-student>
 <app-admin-settings></app-admin-settings>
 <app-system-entries></app-system-entries>
-<app-reports></app-reports>
+<app-reports></app-reports> -->

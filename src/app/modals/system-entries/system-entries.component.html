@@ -23,7 +23,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false" (click)="setEntryType('Payment')">
+                  <a class="nav-link" data-toggle="tab" href="#link2" role="tablist" aria-expanded="false" (click)="setEntryType('Payment'); isClassesAvailable()">
                     <i class="material-icons mi-pills"> attach_money</i>&nbsp;<span>Payment Entries</span>
                   </a>
                 </li>
@@ -107,7 +107,7 @@
                   <thead>
                     <tr>
                       <th scope="col">Category Name</th>
-                      <th scope="col">Year</th>
+                      <th scope="col">Class</th>
                       <th scope="col">Amount</th>
                       <th scope="col">Actions</th>
                     </tr>
@@ -115,8 +115,8 @@
                   <tbody>
                     <tr *ngFor="let item of dPaymentEntries; let recIndex = index">
                       <td>{{item.entryName}}</td>
+                      <td>{{item.entryClass}}</td>
                       <td>{{item.entryAmount}}</td>
-                      <td>{{item.entryYear}}</td>
                       <td>
                         <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalEditPaymentEntries"
                           (click)="setCurrentRecordDetail(item._id, recIndex, item)">Edit</button>
@@ -132,10 +132,14 @@
 
               <div id="addChargeCategories">
                 <form autocomplete="off">
+
+                  <h6>Extra Fees</h6>
+                  <br>
+
                   <div class="row">
 
                     <div class="col-md-3">
-                      <div class="form-group">
+                      <div class="form-group school-fees-align-with-select">
                         <label for="seCategoryName">Category name</label>
                         <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
                           placeholder="Enter category" [(ngModel)]="tPaymentCategory" name="pEntryCategory">
@@ -144,20 +148,22 @@
                     </div>
 
                     <div class="col-md-3">
-                      <div class="form-group">
+                      <div class="form-group school-fees-align-with-select">
                         <label for="seAmount">Amount</label>
                         <input type="number" class="form-control" id="seAmount" aria-describedby="seAmountHelp"
-                          placeholder="Enter smount" [(ngModel)]="tPaymentAmount" name="pEntryAmount">
+                          placeholder="Enter amount" [(ngModel)]="tPaymentAmount" name="pEntryAmount">
                         <small id="seAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
                       </div>
                     </div>
 
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label for="seYear">Year</label>
-                        <input type="number" class="form-control" id="seYear" aria-describedby="seYearHelp" placeholder="Enter year"
-                          [(ngModel)]="tPaymentYear" name="pEntryYear">
-                        <small id="seYearHelp" class="form-text text-muted">Type amount effective year</small>
+                        <label for="tPaymentClass">Select Class</label>
+                        <select class="form-control selectpicker" data-style="btn btn-link" id="tPaymentClass"
+                          [(ngModel)]="tPaymentClass" name="tPaymentClassName">
+                          <option disabled selected value="">{{classAvailability}}</option>
+                          <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
+                        </select>
                       </div>
                     </div>
 
@@ -170,7 +176,59 @@
                     </div>
 
                   </div>
+
                 </form>
+
+
+                <form autocomplete="off">
+                  <br>
+                  <h6>School Fees</h6>
+                  <br>
+
+                  <div class="row">
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select School Fee</label>
+                        <select class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1"
+                          [(ngModel)]="tSchoolPaymentType" name="pSchoolPaymentType">
+                          <option disabled selected value="">Click to Select School Fee</option>
+                          <option *ngFor="let item of schoolFeeCategories" value={{item}}>{{item}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group school-fees-align-with-select">
+                        <label for="seSchoolAmount">Amount</label>
+                        <input type="number" class="form-control" id="seSchoolAmount" aria-describedby="seSchoolAmountHelp"
+                          placeholder="Enter amount" [(ngModel)]="tSchoolPaymentAmount" name="pSchoolPaymentAmount">
+                        <small id="seSchoolAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="tSchoolPaymentClass">Select Class</label>
+                        <select class="form-control selectpicker" data-style="btn btn-link" id="tSchoolPaymentClass"
+                          [(ngModel)]="tSchoolPaymentClass" name="tSchoolPaymentClassName">
+                          <option disabled selected value="">{{classAvailability}}</option>
+                          <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="create-user-actions text-center">
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addScoolPaymentEntry()">Save</button>
+                        &nbsp;
+                        <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+
               </div>
 
             </div>
@@ -255,16 +313,17 @@
         <div class="row">
 
           <div class="col-md-4">
-            <div class="form-group">
-              <label for="seCategoryName">Category Name</label>
+            <div class="form-group school-fees-align-with-select">
+              <label for="seCategoryName school-fees-align-with-select">Category Name</label>
               <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
-                placeholder="Enter category name" [(ngModel)]="tUpdatePaymentCategory" name="updatePCategory">
+                placeholder="Enter category name" [(ngModel)]="tUpdatePaymentCategory" name="updatePCategory"
+                [disabled]="isSchool">
               <small id="seCategoryNameHelp" class="form-text text-muted">Type category name</small>
             </div>
           </div>
 
           <div class="col-md-4">
-            <div class="form-group">
+            <div class="form-group school-fees-align-with-select">
               <label for="seCategoryAmount">Amount</label>
               <input type="number" class="form-control" id="seCategoryAmount" aria-describedby="seCategoryAmountHelp"
                 placeholder="Enter amount" [(ngModel)]="tUpdatePaymentAmount" name="updatePAmount">
@@ -273,12 +332,23 @@
           </div>
 
           <div class="col-md-4">
-            <div class="form-group">
-              <label for="seCategoryYear">Year</label>
+
+            <div class="form-group ]">
+              <label for="tuPaymentClass">Select Class</label>
+              <select class="form-control selectpicker" data-style="btn btn-link" id="tuPaymentClass" [(ngModel)]="tUpdatePaymentClass"
+                name="tUpdatePaymentClass">
+                <option disabled selected value="">{{classAvailability}}</option>
+                <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
+              </select>
+            </div>
+
+
+            <!-- <div class="form-group">
+              <label for="seCategoryYear">Class</label>
               <input type="number" class="form-control" id="seCategoryYear" aria-describedby="seCategoryYearHelp"
                 placeholder="Enter year" [(ngModel)]="tUpdatePaymentYear" name="updatePYear">
               <small id="seCategoryYearHelp" class="form-text text-muted">Type the year</small>
-            </div>
+            </div> -->
           </div>
 
         </div>

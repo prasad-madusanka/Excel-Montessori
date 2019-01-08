@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EntriesService } from '../../../services/system-entries/entries.service'
 
 declare var $: any
 
@@ -10,11 +11,22 @@ declare var $: any
 export class EditStudentComponent implements OnInit {
 
   dStudentName: string = 'Prasad Madusanka'
+  classes: any = []
+  studClass: string = ''
 
-  constructor() { }
+
+  isClsAvailable: boolean = false
+  officeClassAvailability: string = '- No class found -'
+
+  constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
+    this.initUI()
+  }
+
+  initUI(){
     this.handleModalScrolling()
+    this.getNonPaymentEntries()
   }
 
   handleModalScrolling() {
@@ -29,6 +41,24 @@ export class EditStudentComponent implements OnInit {
         $(this).css('z-index', parseInt($('.modal-backdrop.in').first().css('z-index')) + 10);
       }
     });
+  }
+
+  getNonPaymentEntries() {
+    this.entriesService.getNonPaymentEntries().subscribe((data => {
+      this.classes = data
+      this.isClsAvailable = this.isClassesAvailable()
+    }))
+  }
+
+  isClassesAvailable() {
+
+    if (this.classes.length != 0) {
+      this.officeClassAvailability = 'Click to Select Class'
+      return true
+    } else {
+      this.officeClassAvailability = '- No class found -'
+      return false
+    }
   }
 
 

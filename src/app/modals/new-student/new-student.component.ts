@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { EntriesService } from '../../../services/system-entries/entries.service'
+import { environment } from '../../../environments/environment'
 declare var $: any;
 
 @Component({
@@ -42,22 +44,30 @@ export class NewStudentComponent implements OnInit {
   studentPersonToContactInEmergAddr: string = ''
   studentPersonToContactInEmergTelephone: number
 
+  schoolMonthlyFee: any
+  schoolYearFee: any
+  schoolAdmission: any
+  schoolExtraFees: number = 0
+  totalFee: number = 0
+
   illnessesTypes: { illnessesName: string; status: boolean; }[];
   religions: string[];
 
-  officeWithDC: boolean
+  officeWithDC: string = ''
   officeMonth: string = ''
   officeYear: string = ''
   officeStudClass: string = ''
 
   months: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   years: any[] = []
-  classes: string[] = ['2017']
+  classes: any = []
+  paymentTypes: any = []
+  extraPayments: any = []
 
-  isClsAvailable: boolean = false
+  //isClsAvailable: boolean = false
   officeClassAvailability: string = '- No class found -'
 
-  constructor() {}
+  constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
 
@@ -77,9 +87,14 @@ export class NewStudentComponent implements OnInit {
 
     this.initUIValues()
     this.initCalendar()
+
   }
 
   initUIValues() {
+
+    this.initOfficeYear()
+    this.getNonPaymentEntries()
+    this.getPaymentEntries()
 
     this.illnessesTypes = [
       { illnessesName: 'Seizures', status: false },
@@ -110,10 +125,6 @@ export class NewStudentComponent implements OnInit {
       format: 'L'
     });
 
-    this.initOfficeYear()
-    this.isClassesAvailable()
-    this.isClsAvailable = this.isClassesAvailable()
-
   }
 
   setDOB(dob) {
@@ -134,15 +145,55 @@ export class NewStudentComponent implements OnInit {
 
     if (this.classes.length != 0) {
       this.officeClassAvailability = 'Click to Select Class'
-      return true
     } else {
       this.officeClassAvailability = '- No class found -'
-      return false
     }
   }
 
   resetForm() {
     this.nStudent.reset();
   }
+
+  getNonPaymentEntries() {
+    this.entriesService.getNonPaymentEntries().subscribe((data => {
+      this.classes = data
+      this.isClassesAvailable()
+    }))
+  }
+
+  getPaymentEntries() {
+    this.entriesService.getPaymentEntries().subscribe((data => {
+      this.paymentTypes = data
+      this.extraPayments = this.paymentTypes.filter(items => !items.isSchool)
+    }))
+  }
+
+  calculateRates() {
+
+    this.schoolMonthlyFee = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC))
+    this.schoolMonthlyFee = (this.schoolMonthlyFee) ? parseInt(this.schoolMonthlyFee.entryAmount) : 0
+    this.schoolYearFee = this.schoolMonthlyFee * 12
+
+    var admissionType = (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE)
+      ? environment.ADMISSION_SCHOOL_WITH_DAYCARE
+      : environment.ADMISSION_SCHOOL_ONLY
+
+    this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == admissionType))
+    this.schoolAdmission = (this.schoolAdmission) ? parseInt(this.schoolAdmission.entryAmount) : 0
+
+    this.calculateTotal()
+
+  }
+
+  calculateExtraPayments(event, itemCharge) {
+
+    (event.currentTarget.checked) ? (this.schoolExtraFees += itemCharge) : (this.schoolExtraFees -= itemCharge)
+    this.calculateTotal()
+  }
+
+  calculateTotal() {
+    this.totalFee = this.schoolYearFee + this.schoolAdmission + this.schoolExtraFees
+  }
+
 
 }

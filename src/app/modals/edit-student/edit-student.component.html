@@ -28,12 +28,9 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Select class</label>
-              <select class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <select class="form-control selectpicker" [(ngModel)]="studClass" name="searchClass" id="exampleFormControlSelect1">
+                <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
+                <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
               </select>
             </div>
           </div>
