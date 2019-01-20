@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { EntriesService } from '../../../services/system-entries/entries.service'
 import { environment } from '../../../environments/environment'
+import { StudentService } from '../../../services/students/student.service'
 declare var $: any;
 
 @Component({
@@ -11,11 +12,13 @@ declare var $: any;
 })
 export class NewStudentComponent implements OnInit {
 
-  nStudent: FormGroup
-
+  //Student details
   studentFullName: string = ''
   studentPrefferedName: string = ''
+
+  studentDOB: string = ''
   studentAge: string = ''
+
   studentGender: string = ''
   studentReligion: string = ''
   studentNationality: string = ''
@@ -23,6 +26,8 @@ export class NewStudentComponent implements OnInit {
   studentLanguage2: string = ''
   studentAddress: string = ''
   studentHomeTelephone: number
+
+  //Student father's detail
   studentFathersName: string = ''
   studentFathersNIC: string = ''
   studentFathersOccupation: string = ''
@@ -44,14 +49,13 @@ export class NewStudentComponent implements OnInit {
   studentPersonToContactInEmergAddr: string = ''
   studentPersonToContactInEmergTelephone: number
 
+
+
   schoolMonthlyFee: any
   schoolYearFee: any
   schoolAdmission: any
   schoolExtraFees: number = 0
   totalFee: number = 0
-
-  illnessesTypes: { illnessesName: string; status: boolean; }[];
-  religions: string[];
 
   officeWithDC: string = ''
   officeMonth: string = ''
@@ -63,27 +67,23 @@ export class NewStudentComponent implements OnInit {
   classes: any = []
   paymentTypes: any = []
   extraPayments: any = []
+  daycarePayment: any = []
+
+  daycareCharge: string = ''
 
   //isClsAvailable: boolean = false
+  showDayCareChargers: boolean = true
   officeClassAvailability: string = '- No class found -'
 
-  constructor(private entriesService: EntriesService) { }
+
+  illnessesTypes: { illnessesName: string; status: boolean; }[];
+  religions: string[];
+  nationality: string[]
+  languages: string[]
+
+  constructor(private entriesService: EntriesService, private studentService: StudentService) { }
 
   ngOnInit() {
-
-    this.nStudent = new FormGroup({
-      textOnly: new FormControl(),
-      date: new FormControl(),
-      numbersOnly: new FormControl(),
-      dropdown: new FormControl(),
-      dropdownNumber: new FormControl(),
-      text: new FormControl(),
-      age: new FormControl({ value: '', disabled: true }),
-      studentGender: new FormControl(),
-      illnessesType: new FormControl(),
-      officeWithDC: new FormControl(),
-      officeDropdown: new FormControl()
-    })
 
     this.initUIValues()
     this.initCalendar()
@@ -98,15 +98,16 @@ export class NewStudentComponent implements OnInit {
 
     this.illnessesTypes = [
       { illnessesName: 'Seizures', status: false },
-      { illnessesName: 'Allergies', status: false },
-      { illnessesName: 'Respiratory Illness', status: false },
+      { illnessesName: 'Allergies', status: true },
+      { illnessesName: 'Respiratory Illness', status: true },
       { illnessesName: 'Drug Reactions', status: false },
       { illnessesName: 'ADHD', status: false },
-      { illnessesName: 'Speech Difficulty', status: false },
-      { illnessesName: 'Other', status: false }
+      { illnessesName: 'Speech Difficulty', status: false }
     ]
 
-    this.religions = ['Buddhist', 'Catholic', 'Hindu', 'Islam']
+    this.religions = ['Buddhist', 'Catholic', 'Hindu', 'Islam', 'Other']
+    this.nationality = ['Sinhaleese', 'Tamil', 'Muslim', 'Burgher', 'Other']
+    this.languages = ['Sinhala', 'English', 'Tamil', 'Other']
 
   }
 
@@ -128,6 +129,7 @@ export class NewStudentComponent implements OnInit {
   }
 
   setDOB(dob) {
+    this.studentDOB = dob
     this.studentAge = ((new Date().getFullYear()) - (new Date(dob).getFullYear())).toString() + ' years'
   }
 
@@ -150,10 +152,6 @@ export class NewStudentComponent implements OnInit {
     }
   }
 
-  resetForm() {
-    this.nStudent.reset();
-  }
-
   getNonPaymentEntries() {
     this.entriesService.getNonPaymentEntries().subscribe((data => {
       this.classes = data
@@ -164,36 +162,156 @@ export class NewStudentComponent implements OnInit {
   getPaymentEntries() {
     this.entriesService.getPaymentEntries().subscribe((data => {
       this.paymentTypes = data
-      this.extraPayments = this.paymentTypes.filter(items => !items.isSchool)
+      // this.extraPayments = this.paymentTypes.filter(items => items.isSchool == false)
+      //this.daycarePayment = this.paymentTypes.filter(items => items.isSchool == null)
     }))
   }
 
-  calculateRates() {
+  saveStudent() {
 
-    this.schoolMonthlyFee = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC))
-    this.schoolMonthlyFee = (this.schoolMonthlyFee) ? parseInt(this.schoolMonthlyFee.entryAmount) : 0
-    this.schoolYearFee = this.schoolMonthlyFee * 12
+    var obj = {
+      "stName": this.studentFullName,
+      "stPreferedName": this.studentPrefferedName,
+      "stDOB": this.studentDOB,
+      "stGender": this.studentGender,
+      "stReligion": this.studentReligion,
+      "stNationality": this.studentNationality,
+      "stLanguage1": this.studentLanguage1,
+      "stLanguage2": this.studentLanguage2,
+      "stHomeAddress": this.studentAddress,
+      "stHomeTelephone": this.studentHomeTelephone,
 
-    var admissionType = (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE)
-      ? environment.ADMISSION_SCHOOL_WITH_DAYCARE
-      : environment.ADMISSION_SCHOOL_ONLY
+      "faName": this.studentFathersName,
+      "faNIC": this.studentFathersNIC,
+      "faOccupation": this.studentFathersOccupation,
+      "faOfficeAddress": this.studentFathersOffiAddr,
+      "faMobile": this.studentFathersMobileNumber,
+      "faOffTelephone": this.studentFathersOfficeNumber,
 
-    this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == admissionType))
-    this.schoolAdmission = (this.schoolAdmission) ? parseInt(this.schoolAdmission.entryAmount) : 0
+      "moName": this.studentMothersName,
+      "moNIC": this.studentMothersNIC,
+      "moOccupation": this.studentMothersOccupation,
+      "moOfficeAddress": this.studentMothersOffiAddr,
+      "moMobile": this.studentMothersMobileNumber,
+      "moOffTelephone": this.studentMothersOfficeNumber,
 
-    this.calculateTotal()
+      "picUpName1": this.studentPickingUppersName1,
+      "picUpNIC1": this.studentPickingUppersNIC1,
+      "picUpName2": this.studentPickingUppersName2,
+      "picUpNIC2": this.studentPickingUppersNIC2,
+
+      "ecName": this.studentPersonToContactInEmergName,
+      "ecRelationship": this.studentPersonToContactInEmergRelationship,
+      "ecAddress": this.studentPersonToContactInEmergAddr,
+      "ecTelephone": this.studentPersonToContactInEmergTelephone,
+
+      "ofFacilityType": this.officeWithDC,
+      "stAdmittedMonth": this.officeMonth,
+      "stAdmittedYear": this.officeYear,
+
+      "stAdmittedClass": this.officeStudClass,
+
+      "illSeizures": this.illnessesTypes[0].status,
+      "illAllergies": this.illnessesTypes[1].status,
+      "illRespiratory_Illness": this.illnessesTypes[2].status,
+      "illDrug_Reactions": this.illnessesTypes[3].status,
+      "illADHD": this.illnessesTypes[4].status,
+      "illSpeech_Difficulty": this.illnessesTypes[5].status,
+
+      "admissionFee": this.schoolAdmission
+    }
+
+    this.studentService.insertNewStudent(obj).subscribe((dataStudent) => {
+
+    })
+
 
   }
 
-  calculateExtraPayments(event, itemCharge) {
-
-    (event.currentTarget.checked) ? (this.schoolExtraFees += itemCharge) : (this.schoolExtraFees -= itemCharge)
-    this.calculateTotal()
+  calculateAdmission() {
+    this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC)) || 0
+    this.schoolAdmission = this.schoolAdmission.entryAmount || 0
   }
 
-  calculateTotal() {
-    this.totalFee = this.schoolYearFee + this.schoolAdmission + this.schoolExtraFees
+  getIllnessType(illnessesName) {
+    this.illnessesTypes.filter(item => (item.illnessesName === illnessesName))
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // calculateRates() {
+
+  //   this.showDayCareChargers = (this.officeWithDC === environment.SCHOOL_ONLY) ? false : true
+
+  //   if (this.officeWithDC !== environment.ADMISSION_DAYCARE_ONLY) {
+
+  //     this.schoolMonthlyFee = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC))
+  //     this.schoolMonthlyFee = (this.schoolMonthlyFee) ? parseInt(this.schoolMonthlyFee.entryAmount) : 0
+  //     this.schoolYearFee = this.schoolMonthlyFee * 12
+
+  //   } else {
+
+  //     this.schoolMonthlyFee = 0
+  //     this.schoolYearFee = 0
+
+  //   }
+
+  //   var admissionType
+
+  //   if (this.officeWithDC === environment.SCHOOL_ONLY) {
+  //     admissionType = environment.ADMISSION_SCHOOL_ONLY
+  //   } else if (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE) {
+  //     admissionType = environment.ADMISSION_SCHOOL_WITH_DAYCARE
+  //   } else {
+  //     admissionType = environment.ADMISSION_DAYCARE_ONLY
+  //   }
+
+  //   // var admissionType = (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE)
+  //   //   ? environment.ADMISSION_SCHOOL_WITH_DAYCARE
+  //   //   : environment.ADMISSION_SCHOOL_ONLY
+
+  //   this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == admissionType))
+  //   this.schoolAdmission = (this.schoolAdmission) ? parseInt(this.schoolAdmission.entryAmount) : 0
+
+  //   this.calculateTotal()
+
+  // }
+
+  // calculateExtraPayments(event, itemCharge) {
+
+  //   (event.currentTarget.checked) ? (this.schoolExtraFees += itemCharge.entryAmount) : (this.schoolExtraFees -= itemCharge.entryAmount)
+  //   this.calculateTotal()
+  // }
+
+  // calculateTotal() {
+  //   this.totalFee = this.schoolYearFee + this.schoolAdmission + this.schoolExtraFees
+  // }
+
+  // calculateRatesL() {
+  //   console.log(this.daycareCharge)
+  // }
 
 
 }

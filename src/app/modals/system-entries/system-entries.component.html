@@ -182,7 +182,7 @@
 
                 <form autocomplete="off">
                   <br>
-                  <h6>School Fees</h6>
+                  <h6>School / Other Fees</h6>
                   <br>
 
                   <div class="row">
@@ -192,7 +192,7 @@
                         <label for="exampleFormControlSelect1">Select School Fee</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1"
                           [(ngModel)]="tSchoolPaymentType" name="pSchoolPaymentType">
-                          <option disabled selected value="">Click to Select School Fee</option>
+                          <option disabled selected value="">Click to Select School Fee Type</option>
                           <option *ngFor="let item of schoolFeeCategories" value={{item}}>{{item}}</option>
                         </select>
                       </div>
@@ -228,6 +228,57 @@
 
                   </div>
                 </form>
+
+
+                <form autocomplete="off">
+                  <br>
+                  <h6>Day Care Fees</h6>
+                  <br>
+
+                  <div class="row">
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="dayCareList">Select School Fee</label>
+                        <select class="form-control selectpicker" data-style="btn btn-link" id="dayCareList"
+                          [(ngModel)]="tDCPaymentType" name="tDCPaymentType">
+                          <option disabled selected value="">Click to Select Day Care Fee Type</option>
+                          <option *ngFor="let item of DCFeeCategories" value={{item}}>{{item}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group school-fees-align-with-select">
+                        <label for="seDCAmount">Amount</label>
+                        <input type="number" class="form-control" id="seDCAmount" aria-describedby="seDCAmountHelp"
+                          placeholder="Enter amount" [(ngModel)]="tDCPaymentAmount" name="tDCPaymentAmount">
+                        <small id="seDCAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="tDCPaymentClass">Select Class</label>
+                        <select class="form-control selectpicker" data-style="btn btn-link" id="tDCPaymentClass"
+                          [(ngModel)]="tDCPaymentClass" name="tDCPaymentClass">
+                          <option disabled selected value="">{{classAvailability}}</option>
+                          <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="create-user-actions text-center">
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addDCPaymentEntry()">Save</button>
+                        &nbsp;
+                        <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+
 
               </div>
 

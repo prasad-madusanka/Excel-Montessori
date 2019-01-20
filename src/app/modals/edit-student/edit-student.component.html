@@ -21,14 +21,15 @@
                   <i class="material-icons">search</i>
                 </span>
               </div>
-              <input type="text" class="form-control" placeholder="Search Student">
+              <input type="text" class="form-control" placeholder="Search Student" [(ngModel)]="searchText">
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="form-group">
               <label for="exampleFormControlSelect1">Select class</label>
-              <select class="form-control selectpicker" [(ngModel)]="studClass" name="searchClass" id="exampleFormControlSelect1">
+              <select class="form-control selectpicker" [(ngModel)]="studClass" name="searchClass" (change)="getStudent()"
+                id="exampleFormControlSelect1">
                 <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
                 <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
               </select>
@@ -51,15 +52,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+              <tr *ngFor="let item of search(); let recIndex = index">
+                <td>{{item.stPreferedName}}</td>
+                <td>{{item.stHomeTelephone}}</td>
+                <td>{{item.faNIC}}</td>
+                <td>{{item.moNIC}}</td>
                 <td>
-                  <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalUpdateStudent">Update</button>
+                  <button class="btn btn-info btn-round btn-sm" data-toggle="modal" data-target="#modalUpdateStudent"
+                    (click)="setCurrentRecordDetail(recIndex,item.stPreferedName)">Update</button>
                   &nbsp;
-                  <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteWarning">Delete</button>
+                  <button class="btn btn-danger btn-round btn-sm" data-toggle="modal" data-target="#modalDeleteWarning"
+                    (click)="setCurrentRecordDetail(recIndex,item.stPreferedName)">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -71,14 +74,14 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
 </div>
 
 
-<app-modal-update-student></app-modal-update-student>
+<app-modal-update-student [selectedRecord]="recDetail" [age]="studentAgeCalculated" [illnessTypes]="studentIllnessTypes" (refreshData)="refreshData($event)"></app-modal-update-student>
 
 <div class="modal fade noselect" id="modalDeleteWarning" tabindex="-1" role="dialog" aria-labelledby="modalDeleteWarningLabel"
   aria-hidden="true">
@@ -98,12 +101,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>This action cannot be undone</p>
-        <p>Record : <b>{{dStudentName}}</b></p>
+        <p>This action cannot be undone and delete every record which related to the student</p>
+        <p>Record : <b>{{studentPrefName}}</b></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger">Yes, Im sure</button>
+        <button type="button" class="btn btn-danger" (click)="deleteStudent()" data-dismiss="modal">Yes, Im sure</button>
       </div>
     </div>
   </div>

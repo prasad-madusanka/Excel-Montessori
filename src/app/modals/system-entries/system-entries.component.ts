@@ -11,6 +11,7 @@ declare var $: any
 export class SystemEntriesComponent implements OnInit {
 
   schoolFeeCategories: string[] = []
+  DCFeeCategories: string[] = []
 
   dEntryDetail = {
     '_id': '', 'entryName': '', 'entryYear': 0, 'entryAmount': 0
@@ -39,15 +40,20 @@ export class SystemEntriesComponent implements OnInit {
 
   tSchoolPaymentType: string = ''
   tSchoolPaymentAmount: number
-  tSchoolPaymentYear: number
+  //tSchoolPaymentYear: number
   tSchoolPaymentClass: string = ''
+
+  tDCPaymentType: string = ''
+  tDCPaymentAmount: number
+  tDCPaymentClass: string = ''
 
 
   constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
 
-    this.schoolFeeCategories = ['School only', 'School with Day Care', 'Admission - School only', 'Admission - School with Day Care']
+    this.schoolFeeCategories = ['School only', 'School with Day Care', 'Admission - School only', 'Admission - School with Day Care', 'Admission - Day Care only']
+    this.DCFeeCategories = ['Above 2Y - Full Day / Month', 'Above 2Y - Half Day / Month', 'Under 2Y - Full Day / Month', 'Under 2Y - Half Day / Month', 'Daily Basis - Full Day', 'Daily Basis - Half Day', 'Saturday Care - Full Day', 'Saturday Care - Half Day']
 
     this.handleModalScrolling()
     this.getNonPaymentEntries()
@@ -68,7 +74,7 @@ export class SystemEntriesComponent implements OnInit {
       this.tUpdatePaymentCategory = data.entryName
       this.tUpdatePaymentAmount = data.entryAmount
       this.tUpdatePaymentClass = data.entryClass
-      this.isSchool = data.isSchool
+      this.isSchool = (data.isSchool == false) ? false : true
     }
 
 
@@ -178,6 +184,19 @@ export class SystemEntriesComponent implements OnInit {
       this.dPaymentEntries.push(data)
     }))
 
+  }
+
+  addDCPaymentEntry() {
+    var obj = {
+      "entryName": this.tDCPaymentType,
+      "entryAmount": this.tDCPaymentAmount,
+      "entryClass": this.tDCPaymentClass,
+      "isSchool": null
+    }
+
+    this.entriesService.addPaymentEntry(obj).subscribe((data => {
+      this.dPaymentEntries.push(data)
+    }))
   }
 
   handleModalScrolling() {
