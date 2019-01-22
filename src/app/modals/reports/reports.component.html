@@ -2,17 +2,152 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalReportsLabel"><b>Modal title</b></h5>
+        <h5 class="modal-title" id="modalReportsLabel"><b>Reports</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+
+
+        <div class="container">
+
+
+          <div class="row tab-pills">
+            <div class="col-md-12">
+              <ul class="nav nav-pills nav-pills-rose justify-content-center" role="tablist">
+
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#admissionReports" role="tablist" aria-expanded="true">
+                    <i class="material-icons mi-pills">assignment_ind</i>&nbsp;<span>Admission Report</span>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#monthlyPaymentReports" role="tablist" aria-expanded="false">
+                    <i class="material-icons mi-pills">assignment</i>&nbsp;<span>Monthly Payment Report</span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="tab-content tab-space">
+
+            <div class="tab-pane active" id="admissionReports" aria-expanded="true">
+                <div class="row">
+
+                    <div class="col-md-6 align-search">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">search</i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search Student" [(ngModel)]="searchTextAdmission" name="searchTextAdmission">
+                      </div>
+                    </div>
+        
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="npClassesAdmission">Select class</label>
+                        <select class="form-control selectpicker" [(ngModel)]="studClassAdmission" name="studClassAdmission" (change)="getAdmisionDetails()"
+                          id="npClassesAdmission">
+                          <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
+                          <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
+                        </select>
+                      </div>
+                    </div>
+        
+                  </div>
+        
+                  <div class="row container">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Student Name</th>
+                          <th scope="col">Father's NIC</th>
+                          <th scope="col">Mother's NIC</th>
+                          <th scope="col">Admission</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+
+            <div class="tab-pane" id="monthlyPaymentReports" aria-expanded="false">
+                <div class="row">
+
+                    <div class="col-md-6 align-search">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">search</i>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Search Student" [(ngModel)]="searchText">
+                      </div>
+                    </div>
+        
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Select class</label>
+                        <select class="form-control selectpicker" [(ngModel)]="studClass" name="searchClass" (change)="getStudent()"
+                          id="exampleFormControlSelect1">
+                          <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
+                          <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
+                        </select>
+                      </div>
+                    </div>
+        
+                  </div>
+        
+                  <div class="row container">
+                    <table class="table table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">Student Name</th>
+                          <th scope="col">Father's NIC</th>
+                          <th scope="col">Mother's NIC</th>
+                          <th scope="col">Month</th>
+                          <th scope="col">Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>

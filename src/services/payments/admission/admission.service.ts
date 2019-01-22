@@ -28,4 +28,9 @@ export class AdmissionService {
     return this.http.put(path, installment)
   }
 
+  updateSettlementStatus(status) {
+    var path = environment.ADMISSION + '/status'
+    return this.http.put(path, status)
+  }
+
 }

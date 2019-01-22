@@ -13,6 +13,8 @@ export class AdminSettingsComponent implements OnInit {
   userId: string
   recordIndex: number
 
+  isUserSaveDisabled: boolean = true
+
   availableUsers: any = []
 
   tName: string
@@ -97,6 +99,18 @@ export class AdminSettingsComponent implements OnInit {
 
       }
     })
+  }
+
+  validateUsername() {
+
+    var username = ''
+    if (this.tUsername) {
+      username = this.tUsername
+    }
+
+    var isExist = this.availableUsers.find(item => (item.username == username.split('@')[0]))
+    this.isUserSaveDisabled = (isExist == undefined && (this.tName && this.tPassword && this.tUsername)) ? false : true
+
   }
 
 

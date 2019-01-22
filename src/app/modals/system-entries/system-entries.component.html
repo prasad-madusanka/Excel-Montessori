@@ -61,7 +61,14 @@
                 </table>
               </div>
 
+              <div class="invalid-attempt">
+                <p class="h6 text-center">{{classInvalidAttempt}}</p>
+              </div>
+              <br>
+              <br>
+
               <div id="addClasses">
+
                 <form autocomplete="off">
                   <div class="row">
 
@@ -69,7 +76,7 @@
                       <div class="form-group">
                         <label for="systemEntriesClassName">Class name</label>
                         <input type="text" class="form-control" id="systemEntriesClassName" aria-describedby="systemEntriesClassNameHelp"
-                          placeholder="Enter class name" [(ngModel)]="tNonPaymentClassName" name="npClassName">
+                          placeholder="Enter class name" [(ngModel)]="tNonPaymentClassName" (ngModelChange)="validateClasses(tNonPaymentClassName)" name="npClassName">
                         <!-- <small id="systemEntriesClassNameHelp" class="form-text text-muted">Enter the class name</small> -->
                       </div>
                     </div>
@@ -87,7 +94,7 @@
 
                     <div class="col-md-4">
                       <div class="create-user-actions text-center">
-                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addNonPaymentEntry()">Save</button>
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addNonPaymentEntry()" [disabled]="isNpEntriesUpdateButtonDisable">Save</button>
                         &nbsp;
                         <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                       </div>
@@ -133,6 +140,11 @@
               <div id="addChargeCategories">
 
                 <hr>
+
+                <br>
+                <div class="invalid-attempt">
+                  <p class="h6 text-center">{{invalidAttemp}}</p>
+                </div>
 
                 <form autocomplete="off">
                   <br>
@@ -325,7 +337,7 @@
             <div class="form-group">
               <label for="seClassName">Class Name</label>
               <input type="text" class="form-control" id="seClassName" aria-describedby="seClassNameHelp" placeholder="Enter class name"
-                [(ngModel)]="tUpdateNonPaymentClassName" name="updateNPClassName">
+                [(ngModel)]="tUpdateNonPaymentClassName" (ngModelChange)="validateClasses(tUpdateNonPaymentClassName)" name="updateNPClassName">
               <small id="seClassNameHelp" class="form-text text-muted">Type class name</small>
             </div>
           </div>
@@ -347,7 +359,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateNonPaymentEntry()">Save
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateNonPaymentEntry()" [disabled]="isNpEntriesUpdateButtonDisable">Save
           changes</button>
       </div>
     </div>

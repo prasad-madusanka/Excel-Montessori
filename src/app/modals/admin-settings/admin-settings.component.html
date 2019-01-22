@@ -58,7 +58,7 @@
                   <div class="form-group">
                     <label for="aoName">Name</label>
                     <input type="text" class="form-control" id="aoName" aria-describedby="aoNameHelp" placeholder="Enter Name"
-                      [(ngModel)]="tName" name="name">
+                      [(ngModel)]="tName" name="name" (ngModelChange)="validateUsername()">
                     <small id="aoNameHelp" class="form-text text-muted">Type new users <b>name</b></small>
                   </div>
                 </div>
@@ -67,7 +67,7 @@
                   <div class="form-group">
                     <label for="aoUsername">Username</label>
                     <input type="text" class="form-control text-lowercase" id="aoUsername" aria-describedby="aoUsernameHelp"
-                      placeholder="Enter username" [(ngModel)]="tUsername" name="username">
+                      placeholder="Enter username" [(ngModel)]="tUsername" (ngModelChange)="validateUsername()" name="username">
                     <small id="aoUsernameHelp" class="form-text text-muted">Type new users <b>username</b></small>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
                   <div class="form-group">
                     <label for="aoPassword">Password</label>
                     <input type="text" class="form-control" id="aoPassword" aria-describedby="aoPasswordHelp"
-                      placeholder="Enter password" [(ngModel)]="tPassword" name="password">
+                      placeholder="Enter password" [(ngModel)]="tPassword" name="password" (ngModelChange)="validateUsername()">
                     <small id="aoPasswordHelp" class="form-text text-muted">Type new users <b>password</b></small>
                   </div>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="col-md-3">
 
                   <div class="create-user-actions text-center">
-                    <button class="btn btn-success btn-round btn-sm" (click)="addUser()">Save</button>
+                    <button type="reset" class="btn btn-success btn-round btn-sm" (click)="addUser()" [disabled]="isUserSaveDisabled">Save</button>
                     &nbsp;
                     <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                   </div>

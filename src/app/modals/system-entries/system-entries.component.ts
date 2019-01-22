@@ -47,6 +47,13 @@ export class SystemEntriesComponent implements OnInit {
   tDCPaymentAmount: number
   tDCPaymentClass: string = ''
 
+  invalidAttemp: string = ''
+  classInvalidAttempt: string = ''
+
+
+  isNpEntriesUpdateButtonDisable: boolean = true
+  isNpEntriesSaveButtonDisable: boolean = true
+
 
   constructor(private entriesService: EntriesService) { }
 
@@ -84,6 +91,7 @@ export class SystemEntriesComponent implements OnInit {
 
   setEntryType(et) {
     this.dEntryType = et
+    this.invalidAttemp = ''
   }
 
   getNonPaymentEntries() {
@@ -101,7 +109,15 @@ export class SystemEntriesComponent implements OnInit {
     }
 
     this.entriesService.addNonPaymentEntry(obj).subscribe((data => {
-      this.dNonPaymentEntries.push(data)
+
+      if (data['message']) {
+        this.invalidAttemp = data['message']
+      } else {
+        this.invalidAttemp = ''
+        this.dNonPaymentEntries.push(data)
+      }
+
+
     }))
   }
 
@@ -142,7 +158,14 @@ export class SystemEntriesComponent implements OnInit {
     }
 
     this.entriesService.addPaymentEntry(obj).subscribe((data => {
-      this.dPaymentEntries.push(data)
+
+      if (data['message']) {
+        this.invalidAttemp = data['message']
+      } else {
+        this.invalidAttemp = ''
+        this.dPaymentEntries.push(data)
+      }
+
     }))
   }
 
@@ -181,7 +204,13 @@ export class SystemEntriesComponent implements OnInit {
     }
 
     this.entriesService.addPaymentEntry(obj).subscribe((data => {
-      this.dPaymentEntries.push(data)
+
+      if (data['message']) {
+        this.invalidAttemp = data['message']
+      } else {
+        this.invalidAttemp = ''
+        this.dPaymentEntries.push(data)
+      }
     }))
 
   }
@@ -195,7 +224,14 @@ export class SystemEntriesComponent implements OnInit {
     }
 
     this.entriesService.addPaymentEntry(obj).subscribe((data => {
-      this.dPaymentEntries.push(data)
+
+      if (data['message']) {
+        this.invalidAttemp = data['message']
+      } else {
+        this.invalidAttemp = ''
+        this.dPaymentEntries.push(data)
+      }
+
     }))
   }
 
@@ -222,5 +258,11 @@ export class SystemEntriesComponent implements OnInit {
     }
   }
 
+  validateClasses(className) {
+    var npClasses = this.dNonPaymentEntries.find(item => (item.entryName.replace(/ /gi, '').toLowerCase() == className.replace(/ /gi, '').toLowerCase()))
+    this.isNpEntriesUpdateButtonDisable = (npClasses == undefined && className) ? false : true
+    this.classInvalidAttempt = (npClasses != undefined) ? '* Class name already exist *' : ''
+
+  }
 
 }

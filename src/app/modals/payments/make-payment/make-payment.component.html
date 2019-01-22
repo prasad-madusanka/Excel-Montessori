@@ -220,99 +220,106 @@
 
                 <div class="school-fees">
 
-                  <h6>School Fees</h6>
+
+                  <div *ngIf="userData.ofFacilityType !== 'Admission - Day Care only'">
+
+                    <h6>School Fees</h6>
+                    <br>
+
+                    <form autocomplete="off">
+
+                      <div class="row">
+
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="paymentMonth">Month</label>
+                            <select class="form-control" id="paymentMonth" [(ngModel)]="paymentMonth" name="paymentMonth"
+                              (ngModelChange)="validateSchoolMonthlyForm()">
+                              <option disabled selected value="">Click to Select Month</option>
+                              <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="form-group school-fee-monthly">
+                            <label for="txtRecieptSchool">Reciept</label>
+                            <input type="number" class="form-control" id="txtRecieptSchool" aria-describedby="txtRecieptSchoolHelp"
+                              placeholder="Reciept Number" [(ngModel)]="monthlySchoolFeeReciept" name="admissionPaymentReciept"
+                              (ngModelChange)="validateSchoolMonthlyForm()">
+                            <small id="txtRecieptSchoolHelp" class="form-text text-muted">Type Reciept No</small>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlySchoolFee(userData._id,userData.monthlyFeeClass)"
+                            [disabled]="isSchoolMonthPayButtonDisable">
+                            <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{userData.monthlyFeeClass}} LKR</b>
+                          </button>
+                        </div>
+
+                      </div>
+
+                    </form>
+
+                  </div>
+
                   <br>
 
-                  <form autocomplete="off">
+                  <div *ngIf="userData.ofFacilityType !== 'School only'">
 
-                    <div class="row">
+                    <h6>Day Care Fees</h6>
+                    <br>
 
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="paymentMonth">Month</label>
-                          <select class="form-control" id="paymentMonth" [(ngModel)]="paymentMonth" name="paymentMonth"
-                            (ngModelChange)="validateSchoolMonthlyForm()">
-                            <option disabled selected value="">Click to Select Month</option>
-                            <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
-                          </select>
+                    <form autocomplete="off">
+
+                      <div class="row">
+
+                        <div class="col-md-3">
+
+                          <div class="form-group">
+                            <label for="dcPayementMonth">Month</label>
+                            <select class="form-control" id="dcPayementMonth" [(ngModel)]="dcPayementMonth" name="dcPayementMonth"
+                              (ngModelChange)="validateDCMonthlyForm()">
+                              <option disabled selected value="">Click to Select Month</option>
+                              <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+                            </select>
+
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="col-md-3">
-                        <div class="form-group school-fee-monthly">
-                          <label for="txtRecieptSchool">Reciept</label>
-                          <input type="number" class="form-control" id="txtRecieptSchool" aria-describedby="txtRecieptSchoolHelp"
-                            placeholder="Reciept Number" [(ngModel)]="monthlySchoolFeeReciept" name="admissionPaymentReciept"
-                            (ngModelChange)="validateSchoolMonthlyForm()">
-                          <small id="txtRecieptSchoolHelp" class="form-text text-muted">Type Reciept No</small>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label for="dcPaymentType">Payment Type</label>
+                            <select class="form-control" id="dcPaymentType" [(ngModel)]="dcMonthlyPaymentStatusName"
+                              name="dcPaymentType" (ngModelChange)="validateDCMonthlyForm()">
+                              <option disabled selected value="">Click to Select Type</option>
+                              <option *ngFor="let item of userData.dcPaymentTypes" value="{{item.entryName}}">{{item.entryName}}</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="col-md-3">
-                        <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlySchoolFee(userData._id,userData.monthlyFeeClass)"
-                          [disabled]="isSchoolMonthPayButtonDisable">
-                          <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{userData.monthlyFeeClass}} LKR</b>
-                        </button>
-                      </div>
-
-                    </div>
-
-                  </form>
-
-
-                  <br>
-                  <h6>Day Care Fees</h6>
-                  <br>
-
-                  <form autocomplete="off">
-
-                    <div class="row">
-
-                      <div class="col-md-3">
-
-                        <div class="form-group">
-                          <label for="dcPayementMonth">Month</label>
-                          <select class="form-control" id="dcPayementMonth" [(ngModel)]="dcPayementMonth" name="dcPayementMonth"
-                            (ngModelChange)="validateDCMonthlyForm()">
-                            <option disabled selected value="">Click to Select Month</option>
-                            <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
-                          </select>
-
+                        <div class="col-md-3">
+                          <div class="form-group school-fee-monthly">
+                            <label for="txtDCPayementReciept">Reciept</label>
+                            <input type="number" class="form-control" id="txtDCPayementReciept" aria-describedby="txtDCPayementRecieptHelp"
+                              placeholder="Reciept Number" [(ngModel)]="txtDCPayementReciept" name="txtDCPayementReciept"
+                              (ngModelChange)="validateDCMonthlyForm()">
+                            <small id="txtDCPayementRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label for="dcPaymentType">Payment Type</label>
-                          <select class="form-control" id="dcPaymentType" [(ngModel)]="dcMonthlyPaymentStatusName" name="dcPaymentType"
-                            (ngModelChange)="validateDCMonthlyForm()">
-                            <option disabled selected value="">Click to Select Type</option>
-                            <option *ngFor="let item of userData.dcPaymentTypes" value="{{item.entryName}}">{{item.entryName}}</option>
-                          </select>
+                        <div class="col-md-3">
+                          <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlyDC(userData._id)"
+                            [disabled]="isDCPayButtonDisable">
+                            <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{dcAmount}} LKR</b>
+                          </button>
                         </div>
+
                       </div>
 
-                      <div class="col-md-3">
-                        <div class="form-group school-fee-monthly">
-                          <label for="txtDCPayementReciept">Reciept</label>
-                          <input type="number" class="form-control" id="txtDCPayementReciept" aria-describedby="txtDCPayementRecieptHelp"
-                            placeholder="Reciept Number" [(ngModel)]="txtDCPayementReciept" name="txtDCPayementReciept"
-                            (ngModelChange)="validateDCMonthlyForm()">
-                          <small id="txtDCPayementRecieptHelp" class="form-text text-muted">Type Reciept No</small>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3">
-                        <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlyDC(userData._id)"
-                          [disabled]="isDCPayButtonDisable">
-                          <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{dcAmount}} LKR</b>
-                        </button>
-                      </div>
-
-                    </div>
-
-                  </form>
-
+                    </form>
+                  </div>
 
                   <div class="school-fee-history">
                     <table class="table table-sm text-center text-size">

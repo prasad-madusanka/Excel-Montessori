@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../../../../services/system-entries/entries.service'
 import { StudentService } from '../../../../services/students/student.service'
 import { OtherPaymentsService } from '../../../../services/payments/other-payments/other-payments.service'
+import { AdmissionService } from '../../../../services/payments/admission/admission.service'
 import { environment } from 'src/environments/environment';
 
 declare var $: any
@@ -30,7 +31,7 @@ export class SelectStudentComponent implements OnInit {
   officeClassAvailability: string = '- No class found -'
 
   constructor(private entriesService: EntriesService, private studentService: StudentService,
-    private otherPayementService: OtherPaymentsService) { }
+    private otherPayementService: OtherPaymentsService, private admissionService: AdmissionService) { }
 
   ngOnInit() {
     this.initUI()
@@ -183,15 +184,18 @@ export class SelectStudentComponent implements OnInit {
 
     if (amount === admision.totalFee) {
       vAdmissionPaymentStatus = { statusMessage: 'Settled', styleClass: 'badge-success' }
+      this.updateAdmissionSettleStatus(this.studentDetails[recID].admissionPayment._id, 'PAID')
     } else if (amount > admision.totalFee) {
       vAdmissionPaymentStatus = { statusMessage: 'Over Paid', styleClass: 'badge-info' }
+      this.updateAdmissionSettleStatus(this.studentDetails[recID].admissionPayment._id, 'OVER PAID')
     } else {
       vAdmissionPaymentStatus = { statusMessage: 'Not Settled', styleClass: 'badge-warning' }
+      this.updateAdmissionSettleStatus(this.studentDetails[recID].admissionPayment._id, 'NOT PAID')
     }
 
     var vOtherPaymentTypes = this.paymentTypes.filter(item => (item.isSchool == false && item.entryClass == this.studentDetails[recID].stAdmittedClass))
     var vDCTypes = this.paymentTypes.filter(item => (item.isSchool == null && item.entryClass == this.studentDetails[recID].stAdmittedClass))
-    
+
     this.userData = {
       "_id": this.studentDetails[recID]._id,
       "stName": this.studentDetails[recID].stName,
@@ -256,6 +260,14 @@ export class SelectStudentComponent implements OnInit {
       this.paymentTypes = dataOtherPaymentsEntries
     })
 
+  }
+
+  updateAdmissionSettleStatus(id, status) {
+    var obj = {
+      "_id": id,
+      "status": status
+    }
+    this.admissionService.updateSettlementStatus(obj).subscribe((dataSettlementStatus) => { })
   }
 
 
