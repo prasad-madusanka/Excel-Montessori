@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EntriesService } from '../../../services/system-entries/entries.service'
-import { StudentService } from '../../../services/students/student.service'
+import { EntriesService } from '../../../../services/system-entries/entries.service'
+import { StudentService } from '../../../../services/students/student.service'
 
 declare var $: any
 
@@ -124,7 +124,7 @@ export class EditStudentComponent implements OnInit {
 
     this.studentService.getStudentByClass(this.studClass).subscribe((dataStudents) => {
       this.studentDetails = dataStudents
-
+      this.filteredStudentDetails = []
       this.studentDetails.forEach(element => {
         this.filteredStudentDetails.push({
           "stName": element.stName,

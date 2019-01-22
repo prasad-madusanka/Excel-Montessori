@@ -221,9 +221,11 @@ export class NewStudentComponent implements OnInit {
       "admissionFee": this.schoolAdmission
     }
 
-    this.studentService.insertNewStudent(obj).subscribe((dataStudent) => {
+    // this.studentService.insertNewStudent(obj).subscribe((dataStudent) => {
 
-    })
+    // })
+
+    console.log(obj.admissionFee)
 
 
   }

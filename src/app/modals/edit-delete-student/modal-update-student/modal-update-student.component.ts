@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
-import { EntriesService } from '../../../services/system-entries/entries.service'
-import { StudentService } from '../../../services/students/student.service'
+import { EntriesService } from '../../../../services/system-entries/entries.service'
+import { StudentService } from '../../../../services/students/student.service'
 
 declare var $: any
 

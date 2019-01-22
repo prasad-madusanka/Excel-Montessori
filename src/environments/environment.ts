@@ -13,7 +13,12 @@ export const environment = {
 
   STUDENT: 'http://localhost:3000/excel/student',
 
-  SCHOOL_WITH_DAYCARE: 'School with Day Care',
+  ADMISSION: 'http://localhost:3000/excel/payments/admission',
+
+  SCHOOL_FEE: 'http://localhost:3000/excel/payments/monthly-fee',
+
+  OTHER_PAYMENTS: 'http://localhost:3000/excel/payments/other',
+
   SCHOOL_ONLY: 'School only',
   ADMISSION_DAYCARE_ONLY: 'Admission - Day Care only',
   ADMISSION_SCHOOL_ONLY: 'Admission - School only',

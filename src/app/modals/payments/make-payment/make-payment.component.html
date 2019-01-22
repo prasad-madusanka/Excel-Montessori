@@ -1,0 +1,702 @@
+<div class="modal fade noselect" id="modalMakePayment" tabindex="-1" role="dialog" aria-labelledby="modalMakePaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMakePaymentLabel"><b>Make Payment</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="container">
+
+          <div class="row tab-pills">
+            <div class="col-md-12">
+              <ul class="nav nav-pills nav-pills-success justify-content-center" role="tablist">
+
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#admission_payments" role="tablist" aria-expanded="true">
+                    <i class="material-icons mi-pills">next_week</i>&nbsp;<span>Admission</span>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#school_daycare_payments" role="tablist" aria-expanded="false">
+                    <i class="material-icons mi-pills">school</i>&nbsp;<span>School & Day Care</span>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#other_payments" role="tablist" aria-expanded="false">
+                    <i class="material-icons mi-pills">folder_special</i>&nbsp;<span>Other</span>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+
+          <div class="student-details">
+
+            <div class="row">
+              <div class="col-md-2">
+                <h6>Student Name</h6>
+              </div>
+              <div class="col-md-9">
+                <h6 class="text-bold">{{userData.stName}}</h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <h6>Father's NIC</h6>
+              </div>
+              <div class="col-md-9">
+                <h6 class="text-bold">{{userData.faNIC}}</h6>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2">
+                <h6>Mother's NIC</h6>
+              </div>
+              <div class="col-md-9">
+                <h6 class="text-bold">{{userData.moNIC}}</h6>
+              </div>
+            </div>
+
+          </div>
+
+          <hr>
+
+          <div class="tab-content tab-space">
+
+            <div class="tab-pane active" id="admission_payments" aria-expanded="true">
+
+              <div class="admission-detais">
+
+                <div class="row text-center">
+
+                  <div class="col-md-3">
+                    <span>
+                      <h6>Facility Type</h6>
+                      <h6 class="text-bold">{{userData.ofFacilityType}}</h6>
+                    </span>
+                  </div>
+
+                  <div class="col-md-3">
+                    <span>
+                      <h6>Amount</h6>
+                      <h6 class="text-bold">{{userData.admissionPaymentsTotalFee}} LKR</h6>
+                    </span>
+                  </div>
+
+                  <div class="col-md-3">
+                    <span>
+                      <h6>Installments</h6>
+                      <h6 class="text-bold">{{userData.admissionInstallmentsCount}}</h6>
+                    </span>
+
+                  </div>
+
+                  <div class="col-md-3">
+                    <span>
+                      <h6>Status</h6>
+                      <h6 class="text-bold">
+                        <span class="badge" [ngClass]="userData.admissionPaymentStatus.styleClass">{{userData.admissionPaymentStatus.statusMessage}}</span>
+                      </h6>
+                    </span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="admission-payments-history">
+
+                <div class="table-space" *ngIf="userData.admissionInstallments?.length>0">
+                  <table class="table table-sm text-center text-size">
+                    <thead>
+                      <tr>
+                        <th scope="col">#Ins</th>
+                        <th scope="col">Reciept</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of userData.admissionInstallments; let ind = index; ">
+                        <td>{{ind+1}}</td>
+                        <td>{{item.reciept}}</td>
+                        <td>{{item.installmentDate}}</td>
+                        <td>{{item.amount}} LKR</td>
+                        <td>
+                          <button class="btn btn-info btn-fab btn-fab-mini btn-round" (click)="setAdmissionRecordDetail(item.amount, item.reciept, item._id, userData.admissionId)"
+                            data-toggle="modal" data-target="#modalModifyAdmissionPayment">
+                            <i class="material-icons">update</i>
+                          </button>
+                          <button class="btn btn-danger btn-fab btn-fab-mini btn-round" (click)="setAdmissionRecordDetail(item.amount, item.reciept, item._id, userData.admissionId)"
+                            data-toggle="modal" data-target="#modalDeleteWarningAdmission">
+                            <i class="material-icons">delete_forever</i>
+                          </button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td><b>Total</b></td>
+                        <td><b>{{userData.admissionPaidAmount}} LKR</b></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+              </div>
+
+              <div class="make-payment" *ngIf="userData.admissionPaymentStatus.statusMessage == 'Not Settled'">
+
+
+                <form autocomplete="off">
+
+                  <div class="row">
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="txtAdmissionAmount1">Amount</label>
+                        <input type="number" class="form-control" id="txtAdmissionAmount1" aria-describedby="txtAdmissionAmountHelp1"
+                          placeholder="Enter amount" [(ngModel)]="admissionPaymentAmount1" name="admissionPaymentAmount1"
+                          (ngModelChange)="validateAdmissionForm()">
+                        <small id="txtAdmissionAmountHelp1" class="form-text text-muted">Type Payment Amount. Currency
+                          -
+                          <b>LKR</b></small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="txtRetypeAdmissionAmount2">Amount</label>
+                        <input type="number" class="form-control" id="txtRetypeAdmissionAmount2" aria-describedby="txtRetypeAdmissionAmountHelp2"
+                          placeholder="Retype amount" [(ngModel)]="admissionPaymentAmount2" name="admissionPaymentAmount2"
+                          (ngModelChange)="validateAdmissionForm()">
+                        <small id="txtRetypeAdmissionAmountHelp2" class="form-text text-muted">Retype Payment Amount.
+                          Currency -
+                          <b>LKR</b></small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label for="txtReciept">Reciept</label>
+                        <input type="number" class="form-control" id="txtReciept" aria-describedby="txtRecieptHelp"
+                          placeholder="Reciept Number" [(ngModel)]="admissionPaymentReciept" name="admissionPaymentReciept"
+                          (ngModelChange)="validateAdmissionForm()">
+                        <small id="txtRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payAdmission(userData._id)"
+                        [disabled]="isAdmissionPayButtonDisable">
+                        <i class="material-icons">payment</i> Pay
+                      </button>
+                    </div>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="school_daycare_payments" aria-expanded="false">
+
+              <div class="montly-payments">
+
+                <div class="school-fees">
+
+                  <h6>School Fees</h6>
+                  <br>
+
+                  <form autocomplete="off">
+
+                    <div class="row">
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="paymentMonth">Month</label>
+                          <select class="form-control" id="paymentMonth" [(ngModel)]="paymentMonth" name="paymentMonth"
+                            (ngModelChange)="validateSchoolMonthlyForm()">
+                            <option disabled selected value="">Click to Select Month</option>
+                            <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group school-fee-monthly">
+                          <label for="txtRecieptSchool">Reciept</label>
+                          <input type="number" class="form-control" id="txtRecieptSchool" aria-describedby="txtRecieptSchoolHelp"
+                            placeholder="Reciept Number" [(ngModel)]="monthlySchoolFeeReciept" name="admissionPaymentReciept"
+                            (ngModelChange)="validateSchoolMonthlyForm()">
+                          <small id="txtRecieptSchoolHelp" class="form-text text-muted">Type Reciept No</small>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlySchoolFee(userData._id,userData.monthlyFeeClass)"
+                          [disabled]="isSchoolMonthPayButtonDisable">
+                          <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{userData.monthlyFeeClass}} LKR</b>
+                        </button>
+                      </div>
+
+                    </div>
+
+                  </form>
+
+
+                  <br>
+                  <h6>Day Care Fees</h6>
+                  <br>
+
+                  <form autocomplete="off">
+
+                    <div class="row">
+
+                      <div class="col-md-3">
+
+                        <div class="form-group">
+                          <label for="dcPayementMonth">Month</label>
+                          <select class="form-control" id="dcPayementMonth" [(ngModel)]="dcPayementMonth" name="dcPayementMonth"
+                            (ngModelChange)="validateDCMonthlyForm()">
+                            <option disabled selected value="">Click to Select Month</option>
+                            <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+                          </select>
+
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label for="dcPaymentType">Payment Type</label>
+                          <select class="form-control" id="dcPaymentType" [(ngModel)]="dcMonthlyPaymentStatusName" name="dcPaymentType"
+                            (ngModelChange)="validateDCMonthlyForm()">
+                            <option disabled selected value="">Click to Select Type</option>
+                            <option *ngFor="let item of userData.dcPaymentTypes" value="{{item.entryName}}">{{item.entryName}}</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="form-group school-fee-monthly">
+                          <label for="txtDCPayementReciept">Reciept</label>
+                          <input type="number" class="form-control" id="txtDCPayementReciept" aria-describedby="txtDCPayementRecieptHelp"
+                            placeholder="Reciept Number" [(ngModel)]="txtDCPayementReciept" name="txtDCPayementReciept"
+                            (ngModelChange)="validateDCMonthlyForm()">
+                          <small id="txtDCPayementRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payMonthlyDC(userData._id)"
+                          [disabled]="isDCPayButtonDisable">
+                          <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{dcAmount}} LKR</b>
+                        </button>
+                      </div>
+
+                    </div>
+
+                  </form>
+
+
+                  <div class="school-fee-history">
+                    <table class="table table-sm text-center text-size">
+                      <thead>
+                        <tr>
+                          <th scope="col">Month</th>
+                          <th scope="col">Reciept</th>
+                          <th scope="col">Amount</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of userData.monthlyFee">
+                          <td>{{item.month}}</td>
+                          <td>{{item.reciept}}</td>
+                          <td>{{item.amount}} LKR</td>
+                          <td>{{item.status}}</td>
+                          <td>
+                            <i class="material-icons done-all">
+                              done_all
+                            </i>
+                          </td>
+                          <td>
+                            <button class="btn btn-info btn-fab btn-fab-mini btn-round" (click)="setMonthlyFeeDetail(item.amount, item.reciept, item._id, item.month, userData._id)"
+                              data-toggle="modal" data-target="#modalModifySchoolPayment">
+                              <i class="material-icons">update</i>
+                            </button>
+                            <button class="btn btn-danger btn-fab btn-fab-mini btn-round" (click)="setMonthlyFeeDetail(item.amount, item.reciept, item._id, item.month, userData_id)"
+                              data-toggle="modal" data-target="#modalDeleteWarningMonthlyPayment">
+                              <i class="material-icons">delete_forever</i>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="tab-pane" id="other_payments" aria-expanded="false">
+
+              <div class="other-payments">
+
+                <form autocomplete="off">
+                  <div class="row">
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="otherPayment">Class</label>
+                        <select class="form-control selectpicker" id="otherPayment" [(ngModel)]="validateOtherPaymentPaidFor"
+                          name="otherPaymentPaidFor" (change)="getOtherPaymentDate($event.target.value);"
+                          (ngModelChange)="validateOtherPayment()">
+                          <option disabled selected value="">{{userData.isOtherPaymentTypes}}</option>
+                          <option *ngFor="let item of userData.otherPaymentTypes" value={{item._id}}>{{item.entryName}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group school-fee-monthly">
+                        <label for="textOtherPaymentReciept">Reciept</label>
+                        <input type="number" class="form-control" id="textOtherPaymentReciept" aria-describedby="textOtherPaymentRecieptHelp"
+                          placeholder="Reciept Number" [(ngModel)]="otherPaymentReciept" name="textOtherPaymentReciept"
+                          (ngModelChange)="validateOtherPayment()">
+                        <small id="textOtherPaymentRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <button type="reset" class="btn btn-sm btn-info btn-round" (click)="payOtherPayment()" [disabled]="isOtherPaymentButtonDisable">
+                        <i class="material-icons">payment</i>&nbsp;&nbsp;<b>Pay {{otherPaymentAmount}} LKR</b>
+                      </button>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+
+              <br>
+
+              <div class="school-fee-history">
+                <table class="table table-sm text-center text-size">
+                  <thead>
+                    <tr>
+                      <th scope="col">Paid For</th>
+                      <th scope="col">Reciept</th>
+                      <th scope="col">Amount</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of userData.otherPayments.payments">
+                      <td>{{item.paidFor}}</td>
+                      <td>{{item.reciept}}</td>
+                      <td>{{item.amount}} LKR</td>
+                      <td>
+                        <button class="btn btn-info btn-fab btn-fab-mini btn-round" (click)="setOtherPayemntDetail(item._id, userData.otherPayments._id)"
+                          data-toggle="modal" data-target="#modalModifyOtherPayment">
+                          <i class="material-icons">update</i>
+                        </button>
+                        <button class="btn btn-danger btn-fab btn-fab-mini btn-round" (click)="setOtherPayemntDetail(item._id, userData.otherPayments._id)"
+                          data-toggle="modal" data-target="#modalDeleteWarningModifyOtherPayment">
+                          <i class="material-icons">delete_forever</i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalDeleteWarningAdmission" tabindex="-1" role="dialog" aria-labelledby="modalDeleteWarningAdmissionLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="modalDeleteWarningAdmissionLabel">
+          <b>
+            <i class="material-icons i-vertical-sub">warning</i>&nbsp;
+            Are you sure you want to delete this record ?
+          </b>
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action cannot be undone and delete every record which related to the student</p>
+        <p>Reciept : <b>{{admissionInstallmentReciept}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" (click)="deleteAdmissionInstallment()" data-dismiss="modal">Yes,
+          Im sure</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalModifyAdmissionPayment" tabindex="-1" role="dialog" aria-labelledby="modalModifyAdmissionPaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog update-admission" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalModifyAdmissionPaymentLabel"><b>Modify Installment</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="txtUpdateAdmissionAmount1">Amount</label>
+              <input type="number" class="form-control" id="txtUpdateAdmissionAmount1" aria-describedby="txtUpdateAdmissionAmountHelp1"
+                placeholder="Enter amount" [(ngModel)]="updateAdmissionPaymentAmount1" name="updateAdmissionPaymentAmount1"
+                (ngModelChange)="validateAdmissionUpdateForm()">
+              <small id="txtUpdateAdmissionAmountHelp1" class="form-text text-muted">Type Payment Amount. Currency -
+                <b>LKR</b></small>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+
+
+            <div class="form-group">
+              <label for="txtUpdateAdmissionAmount2">Amount</label>
+              <input type="number" class="form-control" id="txtUpdateAdmissionAmount2" aria-describedby="txtUpdateAdmissionAmountHelp2"
+                placeholder="Retype amount" [(ngModel)]="updateAdmissionPaymentAmount2" name="updateAdmissionPaymentAmount2"
+                (ngModelChange)="validateAdmissionUpdateForm()">
+              <small id="txtUpdateAdmissionAmountHelp2" class="form-text text-muted">Retype Payment Amount.
+                Currency -
+                <b>LKR</b></small>
+            </div>
+
+          </div>
+
+          <div class="col-md-4">
+
+            <div class="form-group">
+              <label for="txtUpdateAdmissionAmount">Reciept</label>
+              <input type="number" class="form-control" id="txtUpdateAdmissionAmount" aria-describedby="txtUpdateAdmissionAmountHelp"
+                placeholder="Reciept Number" [(ngModel)]="updateAdmissionPaymentReciept" name="updateAdmissionPaymentReciept"
+                (ngModelChange)="validateAdmissionUpdateForm()">
+              <small id="txtUpdateAdmissionAmountHelp" class="form-text text-muted">Type Reciept No</small>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-info" (click)="updateAdmissionInstallment()" [disabled]="isAdmissionUpdateButtonDisable"
+          data-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalModifySchoolPayment" tabindex="-1" role="dialog" aria-labelledby="modalModifySchoolPaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalModifySchoolPaymentLabel"><b>Modify School Payment</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="updatePaymentMonth">Month</label>
+              <select class="form-control" id="updatePaymentMonth" [(ngModel)]="updatePaymentMonth" name="updatePaymentMonth"
+                (ngModelChange)="validateUpdateSchoolFeeForm()">
+                <option disabled selected value="">Click to Select Month</option>
+                <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="form-group school-fee-monthly">
+              <label for="txtUpdateSchoolFeeReciept">Reciept</label>
+              <input type="number" class="form-control" id="txtUpdateSchoolFeeReciept" aria-describedby="txtUpdateSchoolFeeRecieptHelp"
+                placeholder="Reciept Number" [(ngModel)]="updateSchoolFeeReciept" name="updateSchoolFeeReciept"
+                (ngModelChange)="validateUpdateSchoolFeeForm()">
+              <small id="txtUpdateSchoolFeeRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-info" (click)="updateMonthlySchoolFee()" [disabled]="isSchoolMonthUpdateButtonDisable"
+          data-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalDeleteWarningMonthlyPayment" tabindex="-1" role="dialog" aria-labelledby="modalDeleteWarningMonthlyPaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="modalDeleteWarningMonthlyPaymentLabel">
+          <b>
+            <i class="material-icons i-vertical-sub">warning</i>&nbsp;
+            Are you sure you want to delete this record ?
+          </b>
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action cannot be undone and delete every record which related to the student</p>
+        <p>Reciept : <b>{{updateSchoolFeeReciept}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" (click)="deleteMonthlySchoolFee()" data-dismiss="modal">Yes,
+          Im sure</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalModifyOtherPayment" tabindex="-1" role="dialog" aria-labelledby="modalModifyOtherPaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalModifyOtherPaymentLabel"><b>Modify Other Payment</b></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group school-fee-monthly">
+              <label for="txtUpdateOtherPaymentReciept">Reciept</label>
+              <input type="number" class="form-control" id="txtUpdateOtherPaymentReciept" aria-describedby="txtUpdateOtherPaymentRecieptHelp"
+                placeholder="Reciept Number" [(ngModel)]="updateOtherPaymentReciept" name="updateOtherPaymentReciept"
+                (ngModelChange)="validateOtherFeeReciept()">
+              <small id="txtUpdateOtherPaymentRecieptHelp" class="form-text text-muted">Type Reciept No</small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        &nbsp;
+        <button type="button" class="btn btn-info" (click)="updateOtherPyament()" [disabled]="isOtherPaymentUpdateButtonDisable"
+          data-dismiss="modal">Save
+          changes</button>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="modal fade noselect" id="modalDeleteWarningModifyOtherPayment" tabindex="-1" role="dialog" aria-labelledby="modalDeleteWarningModifyOtherPaymentLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="modalDeleteWarningModifyOtherPaymentLabel">
+          <b>
+            <i class="material-icons i-vertical-sub">warning</i>&nbsp;
+            Are you sure you want to delete this record ?
+          </b>
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>This action cannot be undone and delete every record which related to the student</p>
+        <p>Reciept : <b>{{updateOtherPaymentReciept}}</b></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" (click)="deleteOtherPayment()" data-dismiss="modal">Yes,
+          Im sure</button>
+      </div>
+    </div>
+  </div>
+</div>

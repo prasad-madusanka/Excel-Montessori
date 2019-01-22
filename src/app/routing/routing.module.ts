@@ -8,10 +8,11 @@ import { LoginComponent } from '../components/login/login.component';
 import { MenuComponent } from '../components/menu/menu.component'
 
 import { NewStudentComponent } from '../modals/new-student/new-student.component';
-import { EditStudentComponent } from '../modals/edit-student/edit-student.component';
+import { EditStudentComponent } from '../modals/edit-delete-student/edit-student/edit-student.component';
 import { AdminSettingsComponent } from '../modals/admin-settings/admin-settings.component';
 import { SystemEntriesComponent } from '../modals/system-entries/system-entries.component';
 import { ReportsComponent } from '../modals/reports/reports.component';
+import { SelectStudentComponent } from '../modals/payments/select-student/select-student.component'
 
 const routes: Routes = [
   { path: '', redirectTo: 'menu', pathMatch: 'full' },
@@ -23,7 +24,7 @@ const routes: Routes = [
       { path: 'admin-settings', component: AdminSettingsComponent },
       { path: 'system-entries', component: SystemEntriesComponent },
       { path: 'reports', component: ReportsComponent },
-      { path: 'payments', component: SystemEntriesComponent }
+      { path: 'payments', component: SelectStudentComponent }
     ]
   }
 ]

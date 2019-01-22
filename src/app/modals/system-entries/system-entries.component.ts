@@ -52,7 +52,7 @@ export class SystemEntriesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.schoolFeeCategories = ['School only', 'School with Day Care', 'Admission - School only', 'Admission - School with Day Care', 'Admission - Day Care only']
+    this.schoolFeeCategories = ['School only', 'Admission - School only', 'Admission - School with Day Care', 'Admission - Day Care only']
     this.DCFeeCategories = ['Above 2Y - Full Day / Month', 'Above 2Y - Half Day / Month', 'Under 2Y - Full Day / Month', 'Under 2Y - Half Day / Month', 'Daily Basis - Full Day', 'Daily Basis - Half Day', 'Saturday Care - Full Day', 'Saturday Care - Half Day']
 
     this.handleModalScrolling()
