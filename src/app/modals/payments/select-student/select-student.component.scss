@@ -17,6 +17,14 @@ tbody {
     overflow: auto;
 }
 
+table {
+    font-size: 14px;
+
+    .col-size-len{
+        width: 8rem;
+    }
+}
+
 
 thead, tbody tr {
     display:table;

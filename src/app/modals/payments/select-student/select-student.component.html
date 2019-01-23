@@ -40,9 +40,10 @@
         <div class="container align-table-from-top">
 
 
-          <table class="table table-hover text-center">
+          <table class="table table-sm table-hover text-center">
             <thead>
               <tr>
+                <th scope="col" class="col-size-len"># ({{studCount}})</th>
                 <th scope="col">Student Name</th>
                 <th scope="col">Father's NIC</th>
                 <th scope="col">Mother's NIC</th>
@@ -53,6 +54,7 @@
             <tbody>
               <tr class="pointer" *ngFor="let item of search(); let recIndex = index" (click)="setCurrentRecordDetail(recIndex)"
                 data-toggle="modal" data-target="#modalMakePayment">
+                <td class="col-size-len">{{item.index}}</td>
                 <td>{{item.stPreferedName}}</td>
                 <td>{{item.faNIC}}</td>
                 <td>{{item.moNIC}}</td>
@@ -73,5 +75,5 @@
   </div>
 </div>
 
-<app-make-payment (refreshAdmissionData)="refreshAdmissionPaymentData($event)" (refreshMonthSchoolFeeData)="refreshMonthleFeeData($event)" 
-(refreshOtherPaymentsData)="refreshOtherPaymentsData($event)" [userData]="userData"></app-make-payment>
+<app-make-payment (refreshAdmissionData)="refreshAdmissionPaymentData($event)" (refreshMonthSchoolFeeData)="refreshMonthleFeeData($event)"
+  (refreshOtherPaymentsData)="refreshOtherPaymentsData($event)" [userData]="userData"></app-make-payment>

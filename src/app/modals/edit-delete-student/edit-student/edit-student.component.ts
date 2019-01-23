@@ -29,6 +29,8 @@ export class EditStudentComponent implements OnInit {
   studentAgeCalculated: string = ''
   studentIllnessTypes: any = []
 
+  studCount: number = 0
+
   constructor(private entriesService: EntriesService, private studentService: StudentService) { }
 
   ngOnInit() {
@@ -125,8 +127,11 @@ export class EditStudentComponent implements OnInit {
     this.studentService.getStudentByClass(this.studClass).subscribe((dataStudents) => {
       this.studentDetails = dataStudents
       this.filteredStudentDetails = []
-      this.studentDetails.forEach(element => {
+      this.studentDetails.forEach((element, index) => {
         this.filteredStudentDetails.push({
+
+          "index": (index + 1).toString(),
+
           "stName": element.stName,
           "stPreferedName": element.stPreferedName,
           "stDOB": element.stDOB,
@@ -160,9 +165,11 @@ export class EditStudentComponent implements OnInit {
           "ofFacilityType": element.ofFacilityType,
           "stAdmittedMonth": element.stAdmittedMonth,
           "stAdmittedYear": (element.stAdmittedYear != undefined) ? (element.stAdmittedYear).toString() : '',
-          "stAdmittedClass": element.stName,
+          "stAdmittedClass": element.stName
         })
       });
+
+      this.studCount = this.filteredStudentDetails.length
 
     }, err => {
       this.filteredStudentDetails = []

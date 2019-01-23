@@ -19,6 +19,8 @@ export const environment = {
 
   OTHER_PAYMENTS: 'http://localhost:3000/excel/payments/other',
 
+  REPORTS: 'http://localhost:3000/excel/reports/admission/',
+
   SCHOOL_ONLY: 'School only',
   ADMISSION_DAYCARE_ONLY: 'Admission - Day Care only',
   ADMISSION_SCHOOL_ONLY: 'Admission - School only',

@@ -30,6 +30,8 @@ export class SelectStudentComponent implements OnInit {
   isClsAvailable: boolean = false
   officeClassAvailability: string = '- No class found -'
 
+  studCount: number = 0
+
   constructor(private entriesService: EntriesService, private studentService: StudentService,
     private otherPayementService: OtherPaymentsService, private admissionService: AdmissionService) { }
 
@@ -122,8 +124,10 @@ export class SelectStudentComponent implements OnInit {
     this.studentService.getStudentByClass(this.studClass).subscribe((dataStudents) => {
       this.studentDetails = dataStudents
       this.filteredStudentDetails = []
-      this.studentDetails.forEach(element => {
+      this.studentDetails.forEach((element, index) => {
         this.filteredStudentDetails.push({
+          "index": (index + 1).toString(),
+
           "stName": element.stName,
           "stPreferedName": element.stPreferedName,
           "stDOB": element.stDOB,
@@ -160,6 +164,8 @@ export class SelectStudentComponent implements OnInit {
           "stAdmittedClass": element.stName,
         })
       });
+
+      this.studCount = this.filteredStudentDetails.length
 
     }, err => {
       this.filteredStudentDetails = []
