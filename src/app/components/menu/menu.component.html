@@ -109,7 +109,7 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4" *ngIf="role=='admin'">
     <div class="card">
       <div class="card-header card-header-text card-header-warning">
         <div class="card-text">
@@ -137,7 +137,7 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4" *ngIf="role=='admin'">
     <div class="card">
       <div class="card-header card-header-text card-header-primary">
         <div class="card-text">
@@ -168,9 +168,3 @@
 
 
 <router-outlet></router-outlet>
-
-<!-- <app-new-student></app-new-student>
-<app-edit-student></app-edit-student>
-<app-admin-settings></app-admin-settings>
-<app-system-entries></app-system-entries>
-<app-reports></app-reports> -->

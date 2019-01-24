@@ -8,6 +8,8 @@ export const environment = {
   //End points
   ADMIN_OPTIONS: 'http://localhost:3000/excel/users',
 
+  SIGN_IN: 'http://localhost:3000/excel/login',
+
   SE_NON_PAYMENT: 'http://localhost:3000/excel/entries/non-payment',
   SE_PAYMENT: 'http://localhost:3000/excel/entries/payment',
 

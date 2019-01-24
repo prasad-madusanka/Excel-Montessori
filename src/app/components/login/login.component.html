@@ -9,20 +9,24 @@
       </div>
     </div>
 
-    <div class="card-body">
 
-      <div class="form-group has-success">
-        <label for="usernameInput">Username</label>
-        <input type="text" class="form-control text-lowercase" id="usernameInput" aria-describedby="emailHelp" placeholder="JohnDoe@Excel">
-      </div>
+    <form autocomplete="off">
 
-      <div class="form-group has-success">
-        <label for="passwordInput">Password</label>
-        <input type="password" class="form-control input-success" id="passwordInput" aria-describedby="emailHelp"
-          placeholder="**********">
-      </div>
+      <div class="card-body">
 
-      <!-- <div class="form-check text-center">
+        <div class="form-group has-success">
+          <label for="usernameInput">Username</label>
+          <input type="text" class="form-control text-lowercase" id="usernameInput" aria-describedby="emailHelp"
+            placeholder="JohnDoe@Excel" [(ngModel)]="username" name="username">
+        </div>
+
+        <div class="form-group has-success">
+          <label for="passwordInput">Password</label>
+          <input type="password" class="form-control input-success" id="passwordInput" aria-describedby="emailHelp"
+            placeholder="**********" [(ngModel)]="password" name="password">
+        </div>
+
+        <!-- <div class="form-check text-center">
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="">
           Sign-In as Adminstrator
@@ -32,19 +36,21 @@
         </label>
       </div> -->
 
-      <div class="login-fail">
-        <p class="h6 text-center text-muted">Username or Password incorrect</p>
-      </div>
+        <div class="login-fail">
+          <p class="h6 text-center incorrect" *ngIf="isNotCorrect">Username or Password incorrect</p>
+        </div>
 
-      <div class="form-group text-center">
-        <button type="button" class="btn btn-success btn-round">
+        <div class="form-group text-center">
+          <button type="button" class="btn btn-success btn-round" (click)="signInToSystem()">
             <i class="material-icons">lock_open</i>&nbsp;Sign-In
           </button>
-      </div>
+        </div>
 
-      <small id="emailHelp" class="form-text text-muted text-center">If Username or Password incorrect, Please
-        contact Adminstrator</small>
-    </div>
+        <small id="emailHelp" class="form-text text-muted text-center">If Username or Password incorrect, Please
+          contact Adminstrator</small>
+      </div>
+    </form>
+
   </div>
 
 </div>

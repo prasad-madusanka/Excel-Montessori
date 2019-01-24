@@ -8,11 +8,17 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-
+  role: string = ''
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+
+    if (localStorage.length == 0) {
+      this.router.navigateByUrl('sign-in')
+    }else{
+      this.role = JSON.parse(localStorage.getItem('user')).role
+    }
 
   }
 

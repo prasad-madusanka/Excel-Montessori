@@ -12,5 +12,8 @@ export class AccessService {
   constructor(private http: HttpClient) { }
 
  
+  signIn(obj){
+    return this.http.post(environment.SIGN_IN, obj)
+  }
 
 }
