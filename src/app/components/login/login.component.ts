@@ -40,8 +40,12 @@ export class LoginComponent implements OnInit {
   }
 
   createSession(data) {
-    localStorage.setItem('user', JSON.stringify({ 'username': data.username, 'name': data.name, 'role':data.role }))
+    localStorage.setItem('user', JSON.stringify({ 'username': data.username, 'name': data.name, 'role': data.role }))
     this.router.navigateByUrl('menu')
+  }
+
+  onKeydown() {
+    this.signInToSystem()
   }
 
 }

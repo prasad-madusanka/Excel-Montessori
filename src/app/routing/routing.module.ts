@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -19,7 +19,6 @@ import { NotFoundComponent } from '../components/not-found/not-found.component'
 const routes: Routes = [
   { path: '', redirectTo: 'menu', pathMatch: 'full' },
   { path: 'sign-in', component: LoginComponent },
-  { path: '**', component: NotFoundComponent },
   {
     path: 'menu', component: MenuComponent, children: [
       { path: 'add-student', component: NewStudentComponent },
@@ -29,7 +28,8 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent },
       { path: 'payments', component: SelectStudentComponent }
     ]
-  }
+  },
+  { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({
