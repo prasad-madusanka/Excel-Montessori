@@ -14,9 +14,12 @@ import { SystemEntriesComponent } from '../modals/system-entries/system-entries.
 import { ReportsComponent } from '../modals/reports/reports.component';
 import { SelectStudentComponent } from '../modals/payments/select-student/select-student.component'
 
+import { NotFoundComponent } from '../components/not-found/not-found.component'
+
 const routes: Routes = [
   { path: '', redirectTo: 'menu', pathMatch: 'full' },
   { path: 'sign-in', component: LoginComponent },
+  { path: '**', component: NotFoundComponent },
   {
     path: 'menu', component: MenuComponent, children: [
       { path: 'add-student', component: NewStudentComponent },
@@ -33,7 +36,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RoutingRoutingModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { useHash: true })
   ], exports: [RouterModule],
   declarations: []
 })

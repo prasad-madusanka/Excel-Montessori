@@ -17,6 +17,7 @@ import { ReportsComponent } from './modals/reports/reports.component';
 import { UserComponent } from './components/user/user.component';
 import { SelectStudentComponent } from './modals/payments/select-student/select-student.component';
 import { MakePaymentComponent } from './modals/payments/make-payment/make-payment.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { MakePaymentComponent } from './modals/payments/make-payment/make-paymen
     UserComponent,
     SelectStudentComponent,
     MakePaymentComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
