@@ -88,7 +88,7 @@
                       <td><b>{{item.installments}}</b></td>
                       <td><b>{{item.totalFee}} LKR</b></td>
                       <td>
-                        <i class="material-icons done-all">
+                        <i class="material-icons not-done">
                           close
                         </i>
                       </td>
@@ -101,24 +101,35 @@
             <div class="tab-pane" id="monthlyPaymentReports" aria-expanded="false">
               <div class="row">
 
-                <div class="col-md-6 align-search">
+                <div class="col-md-4 align-search">
                   <div class="input-group">
                     <div class="input-group-prepend">
                       <span class="input-group-text">
                         <i class="material-icons">search</i>
                       </span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Search Student" [(ngModel)]="searchText">
+                    <input type="text" class="form-control" placeholder="Search Student" [(ngModel)]="searchTextMonthlyPayments">
                   </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="exampleFormControlSelect1">Select class</label>
-                    <select class="form-control selectpicker" [(ngModel)]="studClass" name="searchClass" (change)="getStudent()"
-                      id="exampleFormControlSelect1">
+                    <label for="monthlyClassName">Select class</label>
+                    <select class="form-control selectpicker" [(ngModel)]="monthlyClassName" name="monthlyClassName"
+                      (change)="getMonthlyPayments(); monthlyPaymentsOnClassChange();" id="monthlyClassName">
                       <option disabled [selected]="isClassesAvailable" value="">{{officeClassAvailability}}</option>
                       <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label for="monthModel">Month</label>
+                    <select class="form-control" id="monthModel" [(ngModel)]="monthModel" name="dropdownMonth"
+                      (ngModelChange)="getMonthlyPayments()">
+                      <option disabled selected value="">Click to Select Month</option>
+                      <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
                     </select>
                   </div>
                 </div>
@@ -126,23 +137,50 @@
               </div>
 
               <div class="row container">
-                <table class="table table-sm">
+                <table class="table table-sm text-center">
                   <thead>
                     <tr>
+                      <th scope="col"># ({{studMonthlyPaymentCount}})</th>
                       <th scope="col">Student Name</th>
                       <th scope="col">Father's NIC</th>
                       <th scope="col">Mother's NIC</th>
-                      <th scope="col">Month</th>
-                      <th scope="col">Type</th>
+                      <th scope="col">Facility</th>
+                      <th scope="col">School</th>
+                      <th scope="col">Day Care</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                      <td>Mark</td>
-                      <td>Otto</td>
+                    <tr *ngFor="let item of searchMonthlyPayments();">
+                      <td>{{item.index}}</td>
+                      <td>{{item.stPreferedName}}</td>
+                      <td>{{item.faNIC}}</td>
+                      <td>{{item.moNIC}}</td>
+                      <td>{{item.ofFacilityType}}</td>
+
+                      <td>
+                        <i class="material-icons done" *ngIf="item.stat1=='PAID'">
+                          done_all
+                        </i>
+                        <i class="material-icons not-done" *ngIf="item.stat1=='NOT_PAID'">
+                          close
+                        </i>
+                        <i class="material-icons NA" *ngIf="item.stat1=='N/A'">
+                          block
+                        </i>
+                      </td>
+
+                      <td>
+                        <i class="material-icons done" *ngIf="item.stat2=='PAID'">
+                          done_all
+                        </i>
+                        <i class="material-icons not-done" *ngIf="item.stat2=='NOT_PAID'">
+                          close
+                        </i>
+                        <i class="material-icons NA" *ngIf="item.stat2=='N/A'">
+                          block
+                        </i>
+                      </td>
+
                     </tr>
                   </tbody>
                 </table>

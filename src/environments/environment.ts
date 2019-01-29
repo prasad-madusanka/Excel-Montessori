@@ -21,12 +21,14 @@ export const environment = {
 
   OTHER_PAYMENTS: 'http://localhost:3000/excel/payments/other',
 
-  REPORTS: 'http://localhost:3000/excel/reports/admission/',
+  REPORTS: 'http://localhost:3000/excel/reports/',
 
   SCHOOL_ONLY: 'School only',
   ADMISSION_DAYCARE_ONLY: 'Admission - Day Care only',
   ADMISSION_SCHOOL_ONLY: 'Admission - School only',
-  ADMISSION_SCHOOL_WITH_DAYCARE: 'Admission - School with Day Care'
+  ADMISSION_SCHOOL_WITH_DAYCARE: 'Admission - School with Day Care',
+
+  DAY_CARE_FEE_CATEGORIES: ['Above 2Y - Full Day / Month', 'Above 2Y - Half Day / Month', 'Under 2Y - Full Day / Month', 'Under 2Y - Half Day / Month', 'Daily Basis - Full Day', 'Daily Basis - Half Day', 'Saturday Care - Full Day', 'Saturday Care - Half Day']
 
 };
 

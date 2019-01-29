@@ -109,7 +109,8 @@ export class AdminSettingsComponent implements OnInit {
     }
 
     var isExist = this.availableUsers.find(item => (item.username == username.split('@')[0]))
-    this.isUserSaveDisabled = (isExist == undefined && (this.tName && this.tPassword && this.tUsername)) ? false : true
+
+    this.isUserSaveDisabled = (isExist == undefined && username.split('@')[0] && (this.tName && this.tPassword && this.tUsername) && ((username.indexOf('@admin') != -1) || (username.indexOf('@user') != -1))) ? false : true
 
   }
 

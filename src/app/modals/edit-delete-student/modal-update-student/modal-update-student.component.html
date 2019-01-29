@@ -19,7 +19,7 @@
             <div class="form-group">
               <label for="studentFullName">Name in Full</label>
               <input type="text" class="form-control" id="studentFullName" aria-describedby="studentFullNameHelp"
-                placeholder="Type full name here" [(ngModel)]="studentFullName" name="textOnly" [value]="selectedRecord.stName">
+                placeholder="Type full name here" [(ngModel)]="studentFullName" (ngModelChange)="validateForm()" name="textOnly" [value]="selectedRecord.stName">
               <!-- <small id="studentFullNameHelp" class="form-text text-muted"><i>With Meaning of Initials</i></small> -->
             </div>
 
@@ -27,7 +27,7 @@
             <div class="form-group">
               <label for="studentPrefferedName">Preferred Name</label>
               <input type="text" class="form-control" id="studentPrefferedName" aria-describedby="studentPrefferedNameHelp"
-                placeholder="Type preferred name here" [(ngModel)]="studentPrefferedName" name="textOnly" [value]="selectedRecord.stPreferedName">
+                placeholder="Type preferred name here" [(ngModel)]="studentPrefferedName" (ngModelChange)="validateForm()" name="textOnly" [value]="selectedRecord.stPreferedName">
               <small id="studentPrefferedNameHelp" class="form-text text-muted"><i>eg Name - John Doe, Preferred Name
                   -
                   John</i></small>
@@ -40,7 +40,7 @@
                 <div class="form-group">
                   <label class="label-control">Date of Birth</label>
                   <input type="text" class="form-control datetimepicker" value="" placeholder="Click here" (blur)="setDOB($event.target.value)"
-                    name="date" [value]="selectedRecord.stDOB" />
+                    name="date" [value]="selectedRecord.stDOB" (change)="validateForm()"/>
                 </div>
               </div>
 
@@ -61,7 +61,7 @@
                     <div class="col-md">
                       <label class="form-check-label gender-rad">
                         <input class="form-check-input" type="radio" name="studentGender" id="studentGender" value="Male"
-                          [(ngModel)]="selectedRecord.stGender" (ngModelChange)="setGender(selectedRecord.stGender)"
+                          [(ngModel)]="selectedRecord.stGender" (ngModelChange)="setGender(selectedRecord.stGender); validateForm()"
                           name="radioButton">
                         Male
                         <span class="circle">
@@ -73,7 +73,7 @@
                     <div class="col-md">
                       <label class="form-check-label gender-rad">
                         <input class="form-check-input" type="radio" name="studentGender" id="studentGender" value="Female"
-                          [(ngModel)]="selectedRecord.stGender" (ngModelChange)="setGender(selectedRecord.stGender)"
+                          [(ngModel)]="selectedRecord.stGender" (ngModelChange)="setGender(selectedRecord.stGender); validateForm()"
                           name="radioButton">
                         Female
                         <span class="circle">
@@ -97,7 +97,7 @@
                 <div class="form-group">
                   <label for="studentReligion">Religion</label>
                   <select class="form-control" id="studentReligion" [(ngModel)]="studentReligion" name="dropdownReligion"
-                    [value]="selectedRecord.stReligion">
+                    [value]="selectedRecord.stReligion" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Religion</option>
                     <option *ngFor="let item of religions" value="{{item}}">{{item}}</option>
                   </select>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                   <label for="studentNationality">Nationality</label>
                   <select class="form-control" id="studentNationality" [(ngModel)]="studentNationality" name="dropdownNationality"
-                    [value]="selectedRecord.stNationality">
+                    [value]="selectedRecord.stNationality" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Nationality</option>
                     <option *ngFor="let item of nationality" value="{{item}}">{{item}}</option>
                   </select>
@@ -124,7 +124,7 @@
                 <div class="form-group">
                   <label for="studentLanguage1">1<sup>st</sup> Language</label>
                   <select class="form-control" id="studentLanguage1" [(ngModel)]="studentLanguage1" name="dropdownLang1"
-                    [value]="selectedRecord.stLanguage1">
+                    [value]="selectedRecord.stLanguage1" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Language</option>
                     <option *ngFor="let item of languages" value="{{item}}">{{item}}</option>
                   </select>
@@ -135,7 +135,7 @@
                 <div class="form-group">
                   <label for="studentLanguage2">2<sup>nd</sup> Language</label>
                   <select class="form-control" id="studentLanguage2" [(ngModel)]="studentLanguage2" name="dropdownLang2"
-                    [value]="selectedRecord.stLanguage2">
+                    [value]="selectedRecord.stLanguage2" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Language</option>
                     <option *ngFor="let item of languages" value="{{item}}">{{item}}</option>
                   </select>
@@ -148,7 +148,7 @@
             <div class="form-group">
               <label for="studentAddress">Home Address</label>
               <input type="text" class="form-control" id="studentAddress" aria-describedby="studentAddressHelp"
-                placeholder="Type home address here" [(ngModel)]="studentAddress" name="text" [value]="selectedRecord.stHomeAddress">
+                placeholder="Type home address here" [(ngModel)]="studentAddress" name="text" [value]="selectedRecord.stHomeAddress" (ngModelChange)="validateForm()">
               <small id="studentAddressHelp" class="form-text text-muted"><i>Postal adddress, Street, City </i></small>
             </div>
 
@@ -156,7 +156,7 @@
             <div class="form-group">
               <label for="studentHomeTelephone">Home Telephone Number</label>
               <input type="number" class="form-control" id="studentHomeTelephone" aria-describedby="studentHomeTelephoneHelp"
-                placeholder="Type telephone number here" [(ngModel)]="studentHomeTelephone" name="numberOnly" oninput="javascript: if(this.value.length > 9) this.value = this.value.slice(0,9);"
+                placeholder="Type telephone number here" [(ngModel)]="studentHomeTelephone" (ngModelChange)="validateForm()" name="numberOnly" oninput="javascript: if(this.value.length > 9) this.value = this.value.slice(0,9);"
                 [value]="selectedRecord.stHomeTelephone">
               <!-- <small id="studentHomeTelephoneHelp" class="form-text text-muted"><i>Area code 223... </i></small> -->
             </div>
@@ -371,7 +371,7 @@
                 <div class="form-group">
                   <label for="studentPersonToContactInEmergName">Name</label>
                   <input type="text" class="form-control" id="studentPersonToContactInEmergName" aria-describedby="studentPersonToContactInEmergNameHelp"
-                    placeholder="Type name here" [(ngModel)]="studentPersonToContactInEmergName" name="textOnly"
+                    placeholder="Type name here" [(ngModel)]="studentPersonToContactInEmergName" (ngModelChange)="validateForm()" name="textOnly"
                     [value]="selectedRecord.ecName">
                   <!-- <small id="studentPersonToContactInEmergNameHelp" class="form-text text-muted"><i>* </i></small> -->
                 </div>
@@ -382,7 +382,7 @@
                   <label for="studentPersonToContactInEmergRelationship">Relationship</label>
                   <input type="text" class="form-control" id="studentPersonToContactInEmergRelationship"
                     aria-describedby="studentPersonToContactInEmergRelationshipHelp" placeholder="Type relationship here"
-                    [(ngModel)]="studentPersonToContactInEmergRelationship" name="textOnly" [value]="selectedRecord.ecRelationship">
+                    [(ngModel)]="studentPersonToContactInEmergRelationship" (ngModelChange)="validateForm()" name="textOnly" [value]="selectedRecord.ecRelationship">
                   <!-- <small id="studentPersonToContactInEmergRelationshipHelp" class="form-text text-muted"><i>* </i></small> -->
                 </div>
               </div>
@@ -392,7 +392,7 @@
             <div class="form-group">
               <label for="studentPersonToContactInEmergAddr">Address</label>
               <input type="text" class="form-control" id="studentPersonToContactInEmergAddr" aria-describedby="studentPersonToContactInEmergAddrHelp"
-                placeholder="Type address here" [(ngModel)]="studentPersonToContactInEmergAddr" name="text" [value]="selectedRecord.ecAddress">
+                placeholder="Type address here" [(ngModel)]="studentPersonToContactInEmergAddr" (ngModelChange)="validateForm()" name="text" [value]="selectedRecord.ecAddress">
               <!-- <small id="studentPersonToContactInEmergAddrHelp" class="form-text text-muted"><i>* </i></small> -->
             </div>
 
@@ -400,7 +400,7 @@
             <div class="form-group">
               <label for="studentPersonToContactInEmergTelephone">Telephone</label>
               <input type="number" class="form-control" id="studentPersonToContactInEmergTelephone" aria-describedby="formControlContactNumbers"
-                placeholder="Type telephone number here" [(ngModel)]="studentPersonToContactInEmergTelephone" name="numberOnly"
+                placeholder="Type telephone number here" [(ngModel)]="studentPersonToContactInEmergTelephone" (ngModelChange)="validateForm()" name="numberOnly"
                 oninput="javascript: if(this.value.length > 9) this.value = this.value.slice(0,9);" [value]="selectedRecord.ecTelephone">
               <!-- <small id="studentPersonToContactInEmergTelephoneHelp" class="form-text text-muted"><i>* </i></small> -->
             </div>
@@ -436,7 +436,7 @@
                 <div class="col-md">
                   <label class="form-check-label dc-rad">
                     <input class="form-check-input" type="radio" id="officeWithDC" value="Admission - School with Day Care"
-                      [(ngModel)]="selectedRecord.ofFacilityType" name="radioButtonFacType" (change)="calculateAdmission()">
+                      [(ngModel)]="selectedRecord.ofFacilityType" name="radioButtonFacType" (change)="calculateAdmission()" (ngModelChange)="validateForm()">
                     School <b class="text-black">with</b> Day Care Facility
                     <span class="circle">
                       <span class="check"></span>
@@ -447,7 +447,7 @@
                 <div class="col-md">
                   <label class="form-check-label dc-rad">
                     <input class="form-check-input" type="radio" id="officeWithDC" value="School only" [(ngModel)]="selectedRecord.ofFacilityType"
-                      name="radioButtonFacType" (change)="calculateAdmission()">
+                      name="radioButtonFacType" (change)="calculateAdmission()" (ngModelChange)="validateForm()">
                     School <b class="text-black">without</b> Day Care Facility
                     <span class="circle">
                       <span class="check"></span>
@@ -458,7 +458,7 @@
                 <div class="col-md">
                   <label class="form-check-label dc-rad">
                     <input class="form-check-input" type="radio" id="officeOnlyhDC" value="Admission - Day Care only"
-                      [(ngModel)]="selectedRecord.ofFacilityType" name="radioButtonFacType" (change)="calculateAdmission()">
+                      [(ngModel)]="selectedRecord.ofFacilityType" name="radioButtonFacType" (change)="calculateAdmission()" (ngModelChange)="validateForm()">
                     Day Care <b class="text-black">Only</b>
                     <span class="circle">
                       <span class="check"></span>
@@ -476,7 +476,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="officeMonth">Month</label>
-                  <select class="form-control" id="officeMonth" [(ngModel)]="officeMonth" name="dropdownMonth" [value]="selectedRecord.stAdmittedMonth">
+                  <select class="form-control" id="officeMonth" [(ngModel)]="officeMonth" name="dropdownMonth" [value]="selectedRecord.stAdmittedMonth" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Month</option>
                     <option *ngFor="let item of months" value="{{item}}">{{item}}</option>
                   </select>
@@ -486,7 +486,7 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label for="officeYear">Year</label>
-                  <select class="form-control" id="officeYear" [(ngModel)]="officeYear" name="dropdownYear" [value]="selectedRecord.stAdmittedYear">
+                  <select class="form-control" id="officeYear" [(ngModel)]="officeYear" name="dropdownYear" [value]="selectedRecord.stAdmittedYear" (ngModelChange)="validateForm()">
                     <option disabled selected value="">Click to Select Year</option>
                     <option *ngFor="let item of years" value="{{item}}">{{item}}</option>
                   </select>
@@ -497,7 +497,7 @@
                 <div class="form-group">
                   <label for="officeStudClass">Class</label>
                   <select class="form-control selectpicker" id="officeStudClass" [(ngModel)]="selectedRecord.stAdmittedClass" name="dropdownClass"
-                    (change)="calculateAdmission()">
+                    (change)="calculateAdmission()" (ngModelChange)="validateForm()">
                     <option disabled selected value="">{{officeClassAvailability}}</option>
                     <option *ngFor="let item of classes" value={{item.entryName}}>{{item.entryName}}</option>
                   </select>
@@ -514,7 +514,7 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           &nbsp;
-          <button type="reset" class="btn btn-info" (click)="updateStudent()" data-dismiss="modal">Save Changes</button>
+          <button type="reset" class="btn btn-info" (click)="updateStudent()" data-dismiss="modal" [disabled]="isSaveButtonDisabled">Save Changes</button>
 
         </div>
 

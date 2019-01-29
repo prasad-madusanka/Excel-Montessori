@@ -11,9 +11,14 @@ export class ReportsService {
 
   getAdmissionReport(status) {
 
-    var path = environment.REPORTS + status
+    var path = environment.REPORTS + "admission/" + status
     return this.http.get(path)
 
+  }
+
+  getMonthlyPaymentReport(obj) {
+    var path = environment.REPORTS + "monthly-payments"
+    return this.http.post(path, obj)
   }
 
 }

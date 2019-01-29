@@ -81,6 +81,8 @@ export class NewStudentComponent implements OnInit {
   nationality: string[]
   languages: string[]
 
+  isSaveButtonDisabled: boolean = true
+
   constructor(private entriesService: EntriesService, private studentService: StudentService) { }
 
   ngOnInit() {
@@ -221,24 +223,31 @@ export class NewStudentComponent implements OnInit {
       "admissionFee": this.schoolAdmission
     }
 
-    // this.studentService.insertNewStudent(obj).subscribe((dataStudent) => {
+    this.studentService.insertNewStudent(obj).subscribe((dataStudent) => {
 
-    // })
-
-    console.log(obj.admissionFee)
-
+    })
 
   }
 
   calculateAdmission() {
     this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC)) || 0
     this.schoolAdmission = this.schoolAdmission.entryAmount || 0
+    this.isSaveButtonDisabled = (this.schoolAdmission == 0) ? true : false
   }
 
   getIllnessType(illnessesName) {
     this.illnessesTypes.filter(item => (item.illnessesName === illnessesName))
   }
 
+  validateForm() {
+
+    this.isSaveButtonDisabled = (this.studentFullName && this.studentPrefferedName && this.studentDOB &&
+      this.studentGender && this.studentReligion && this.studentNationality && this.studentLanguage1 &&
+      this.studentLanguage2 && this.studentAddress && this.studentHomeTelephone && this.studentPersonToContactInEmergName &&
+      this.studentPersonToContactInEmergRelationship && this.studentPersonToContactInEmergAddr && this.studentPersonToContactInEmergTelephone &&
+      this.officeWithDC && this.officeMonth && this.officeYear && this.officeStudClass && this.schoolAdmission != 0) ? false : true
+
+  }
 
 
 

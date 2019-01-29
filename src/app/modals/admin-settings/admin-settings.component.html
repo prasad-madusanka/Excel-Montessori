@@ -22,6 +22,7 @@
                 <tr>
                   <th scope="col">Name</th>
                   <th scope="col">Username</th>
+                  <th scope="col">Role</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -29,6 +30,7 @@
                 <tr *ngFor="let item of availableUsers; let recIndex = index">
                   <td>{{item.name}}</td>
                   <td>{{item.username}}</td>
+                  <td>{{item.role}}</td>
                   <td>
                     <button class="btn btn-primary btn-round btn-sm" data-toggle="modal" data-target="#modalAdminResetPassword"
                       (click)="setCurrentRecordId(item._id)">Reset</button>
@@ -45,7 +47,7 @@
             </table>
 
           </div>
-
+          <hr>
           <div>
             <h6 class="h6">Create new user</h6>
 

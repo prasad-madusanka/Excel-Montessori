@@ -88,7 +88,7 @@ export class ModalUpdateStudentComponent implements OnInit {
   nationality: string[]
   languages: string[]
 
-
+  isSaveButtonDisabled: boolean = false
 
   constructor(private entriesService: EntriesService, private studentService: StudentService) { }
 
@@ -248,5 +248,16 @@ export class ModalUpdateStudentComponent implements OnInit {
     })
 
   }
+
+  validateForm() {
+
+    // this.isSaveButtonDisabled = (this.studentFullName && this.studentPrefferedName && this.studentDOB &&
+    //   this.studentGender && this.studentReligion && this.studentNationality && this.studentLanguage1 &&
+    //   this.studentLanguage2 && this.studentAddress && this.studentHomeTelephone && this.studentPersonToContactInEmergName &&
+    //   this.studentPersonToContactInEmergRelationship && this.studentPersonToContactInEmergAddr && this.studentPersonToContactInEmergTelephone &&
+    //   this.officeWithDC && this.officeMonth && this.officeYear && this.officeStudClass) ? false : true
+
+  }
+
 
 }

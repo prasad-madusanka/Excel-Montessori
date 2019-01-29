@@ -1,13 +1,13 @@
-.modal-lg{
+.modal-lg {
     margin-top: 45px;
     min-width: 80% !important;
 }
 
-.modal-lg-custom{
+.modal-lg-custom {
     min-width: 50% !important;
 }
 
-.tab-pills{
+.tab-pills {
     padding-bottom: 4rem;
 }
 
@@ -17,8 +17,8 @@
     font-size: 18px !important;
 }
 
-.nav-link{
-    span{
+.nav-link {
+    span {
         vertical-align: 1px;
     }
 }
@@ -27,37 +27,38 @@ tbody {
     height: 12rem;
     display: block;
     overflow: auto;
+    padding-top: 1rem;
 }
 
-
-thead, tbody tr {
-    display:table;
-    width:100%;
-    table-layout:fixed;
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
 }
 
-.user-table td{
+.user-table td {
     vertical-align: middle;
     width: 60%;
 }
 
-.create-user-actions{
+.create-user-actions {
     padding-top: 1rem;
 }
 
-.i-vertical-sub{
+.i-vertical-sub {
     vertical-align: sub;
 }
 
-.charge-categories{
+.charge-categories {
     padding-top: 6rem;
 }
 
-.school-fees-align-with-select{
-    margin-top: 6px;
+.school-fees-align-with-select {
+    margin-top: 5px;
 }
 
-.invalid-attempt{
+.invalid-attempt {
     p {
         font-weight: 600;
         font-size: 10px;

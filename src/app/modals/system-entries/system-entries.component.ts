@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntriesService } from '../../../services/system-entries/entries.service'
+import { environment } from 'src/environments/environment';
 
 declare var $: any
 
@@ -53,14 +54,17 @@ export class SystemEntriesComponent implements OnInit {
 
   isNpEntriesUpdateButtonDisable: boolean = true
   isNpEntriesSaveButtonDisable: boolean = true
-
+  isUpdateAmountDisabled: boolean = false
+  isExtraFeeSaveDisabled: boolean = true
+  isSchoolFeeSaveDisabled: boolean = true
+  isDayCareFeeSaveDisabled: boolean = true
 
   constructor(private entriesService: EntriesService) { }
 
   ngOnInit() {
 
     this.schoolFeeCategories = ['School only', 'Admission - School only', 'Admission - School with Day Care', 'Admission - Day Care only']
-    this.DCFeeCategories = ['Above 2Y - Full Day / Month', 'Above 2Y - Half Day / Month', 'Under 2Y - Full Day / Month', 'Under 2Y - Half Day / Month', 'Daily Basis - Full Day', 'Daily Basis - Half Day', 'Saturday Care - Full Day', 'Saturday Care - Half Day']
+    this.DCFeeCategories = environment.DAY_CARE_FEE_CATEGORIES
 
     this.handleModalScrolling()
     this.getNonPaymentEntries()
@@ -258,11 +262,34 @@ export class SystemEntriesComponent implements OnInit {
     }
   }
 
-  validateClasses(className) {
-    var npClasses = this.dNonPaymentEntries.find(item => (item.entryName.replace(/ /gi, '').toLowerCase() == className.replace(/ /gi, '').toLowerCase()))
-    this.isNpEntriesUpdateButtonDisable = (npClasses == undefined && className) ? false : true
-    this.classInvalidAttempt = (npClasses != undefined) ? '* Class name already exist *' : ''
+  validateClasses() {
 
+    var className = this.tNonPaymentClassName
+    if (className) {
+      var npClasses = this.dNonPaymentEntries.find(item => (item.entryName.replace(/ /gi, '').toLowerCase() == className.replace(/ /gi, '').toLowerCase()))
+      this.isNpEntriesSaveButtonDisable = (npClasses == undefined && className && this.tNonPaymentYear) ? false : true
+      this.classInvalidAttempt = (npClasses != undefined) ? '* Class name already exist *' : ''
+    }
+  }
+
+  validateClassesOnUpdate() {
+    this.isNpEntriesUpdateButtonDisable = (this.tUpdateNonPaymentClassYear) ? false : true
+  }
+
+  validatePaymentEntriesUpdate() {
+    this.isUpdateAmountDisabled = (this.tUpdatePaymentAmount) ? false : true
+  }
+
+  validateExtraPayment() {
+    this.isExtraFeeSaveDisabled = (this.tPaymentCategory && this.tPaymentAmount && this.tPaymentClass) ? false : true
+  }
+
+  validateSchoolPayment() {
+    this.isSchoolFeeSaveDisabled = (this.tSchoolPaymentType && this.tSchoolPaymentAmount && this.tSchoolPaymentClass) ? false : true
+  }
+
+  validateDayCarePayments() {
+    this.isDayCareFeeSaveDisabled = (this.tDCPaymentType && this.tDCPaymentAmount && this.tDCPaymentClass) ? false : true
   }
 
 }

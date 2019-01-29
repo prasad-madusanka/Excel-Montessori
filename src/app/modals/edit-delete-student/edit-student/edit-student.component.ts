@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { EntriesService } from '../../../../services/system-entries/entries.service'
 import { StudentService } from '../../../../services/students/student.service'
 
@@ -10,6 +10,7 @@ declare var $: any
   styleUrls: ['./edit-student.component.scss']
 })
 export class EditStudentComponent implements OnInit {
+
 
   classes: any = []
   studentDetails: any
@@ -264,6 +265,8 @@ export class EditStudentComponent implements OnInit {
       "stAdmittedClass": res.stName,
     }
   }
+
+
 }
 
 

@@ -76,7 +76,8 @@
                       <div class="form-group">
                         <label for="systemEntriesClassName">Class name</label>
                         <input type="text" class="form-control" id="systemEntriesClassName" aria-describedby="systemEntriesClassNameHelp"
-                          placeholder="Enter class name" [(ngModel)]="tNonPaymentClassName" (ngModelChange)="validateClasses(tNonPaymentClassName)" name="npClassName">
+                          placeholder="Enter class name" [(ngModel)]="tNonPaymentClassName" (ngModelChange)="validateClasses()"
+                          name="npClassName">
                         <!-- <small id="systemEntriesClassNameHelp" class="form-text text-muted">Enter the class name</small> -->
                       </div>
                     </div>
@@ -86,7 +87,8 @@
                       <div class="form-group">
                         <label for="systemEntriesClassYear">Year</label>
                         <input type="number" class="form-control" id="systemEntriesClassYear" aria-describedby="systemEntriesClassYearHelp"
-                          placeholder="Enter the year" [(ngModel)]="tNonPaymentYear" name="npYear">
+                          placeholder="Enter the year" [(ngModel)]="tNonPaymentYear" (ngModelChange)="validateClasses()"
+                          name="npYear">
                         <!-- <small id="systemEntriesClassYearHelp" class="form-text text-muted">Enter the year of the class</small> -->
                       </div>
                     </div>
@@ -94,7 +96,8 @@
 
                     <div class="col-md-4">
                       <div class="create-user-actions text-center">
-                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addNonPaymentEntry()" [disabled]="isNpEntriesUpdateButtonDisable">Save</button>
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addNonPaymentEntry()"
+                          [disabled]="isNpEntriesSaveButtonDisable">Save</button>
                         &nbsp;
                         <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                       </div>
@@ -157,7 +160,8 @@
                       <div class="form-group school-fees-align-with-select">
                         <label for="seCategoryName">Category name</label>
                         <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
-                          placeholder="Enter category" [(ngModel)]="tPaymentCategory" name="pEntryCategory">
+                          placeholder="Enter category" [(ngModel)]="tPaymentCategory" name="pEntryCategory"
+                          (ngModelChange)="validateExtraPayment()">
                         <small id="seCategoryNameHelp" class="form-text text-muted">Type Category name. eg - New year</small>
                       </div>
                     </div>
@@ -166,7 +170,7 @@
                       <div class="form-group school-fees-align-with-select">
                         <label for="seAmount">Amount</label>
                         <input type="number" class="form-control" id="seAmount" aria-describedby="seAmountHelp"
-                          placeholder="Enter amount" [(ngModel)]="tPaymentAmount" name="pEntryAmount">
+                          placeholder="Enter amount" [(ngModel)]="tPaymentAmount" name="pEntryAmount" (ngModelChange)="validateExtraPayment()">
                         <small id="seAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
                       </div>
                     </div>
@@ -175,7 +179,7 @@
                       <div class="form-group">
                         <label for="tPaymentClass">Select Class</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="tPaymentClass"
-                          [(ngModel)]="tPaymentClass" name="tPaymentClassName">
+                          [(ngModel)]="tPaymentClass" name="tPaymentClassName" (ngModelChange)="validateExtraPayment()">
                           <option disabled selected value="">{{classAvailability}}</option>
                           <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
                         </select>
@@ -184,7 +188,8 @@
 
                     <div class="col-md-3">
                       <div class="create-user-actions text-center">
-                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addPaymentEntry()">Save</button>
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addPaymentEntry()"
+                          [disabled]="isExtraFeeSaveDisabled">Save</button>
                         &nbsp;
                         <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                       </div>
@@ -208,7 +213,7 @@
                       <div class="form-group">
                         <label for="exampleFormControlSelect1">Select School Fee</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="exampleFormControlSelect1"
-                          [(ngModel)]="tSchoolPaymentType" name="pSchoolPaymentType">
+                          [(ngModel)]="tSchoolPaymentType" name="pSchoolPaymentType" (ngModelChange)="validateSchoolPayment()">
                           <option disabled selected value="">Click to Select School Fee Type</option>
                           <option *ngFor="let item of schoolFeeCategories" value={{item}}>{{item}}</option>
                         </select>
@@ -219,7 +224,8 @@
                       <div class="form-group school-fees-align-with-select">
                         <label for="seSchoolAmount">Amount</label>
                         <input type="number" class="form-control" id="seSchoolAmount" aria-describedby="seSchoolAmountHelp"
-                          placeholder="Enter amount" [(ngModel)]="tSchoolPaymentAmount" name="pSchoolPaymentAmount">
+                          placeholder="Enter amount" [(ngModel)]="tSchoolPaymentAmount" name="pSchoolPaymentAmount"
+                          (ngModelChange)="validateSchoolPayment()">
                         <small id="seSchoolAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
                       </div>
                     </div>
@@ -228,7 +234,7 @@
                       <div class="form-group">
                         <label for="tSchoolPaymentClass">Select Class</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="tSchoolPaymentClass"
-                          [(ngModel)]="tSchoolPaymentClass" name="tSchoolPaymentClassName">
+                          [(ngModel)]="tSchoolPaymentClass" name="tSchoolPaymentClassName" (ngModelChange)="validateSchoolPayment()">
                           <option disabled selected value="">{{classAvailability}}</option>
                           <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
                         </select>
@@ -237,7 +243,8 @@
 
                     <div class="col-md-3">
                       <div class="create-user-actions text-center">
-                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addScoolPaymentEntry()">Save</button>
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addScoolPaymentEntry()"
+                          [disabled]="isSchoolFeeSaveDisabled">Save</button>
                         &nbsp;
                         <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                       </div>
@@ -259,7 +266,7 @@
                       <div class="form-group">
                         <label for="dayCareList">Select Day Care Fee</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="dayCareList"
-                          [(ngModel)]="tDCPaymentType" name="tDCPaymentType">
+                          [(ngModel)]="tDCPaymentType" name="tDCPaymentType" (ngModelChange)="validateDayCarePayments()">
                           <option disabled selected value="">Click to Select Day Care Fee Type</option>
                           <option *ngFor="let item of DCFeeCategories" value={{item}}>{{item}}</option>
                         </select>
@@ -270,7 +277,7 @@
                       <div class="form-group school-fees-align-with-select">
                         <label for="seDCAmount">Amount</label>
                         <input type="number" class="form-control" id="seDCAmount" aria-describedby="seDCAmountHelp"
-                          placeholder="Enter amount" [(ngModel)]="tDCPaymentAmount" name="tDCPaymentAmount">
+                          placeholder="Enter amount" [(ngModel)]="tDCPaymentAmount" name="tDCPaymentAmount" (ngModelChange)="validateDayCarePayments()">
                         <small id="seDCAmountHelp" class="form-text text-muted">Type Amount. Currency - <b>LKR</b></small>
                       </div>
                     </div>
@@ -279,7 +286,7 @@
                       <div class="form-group">
                         <label for="tDCPaymentClass">Select Class</label>
                         <select class="form-control selectpicker" data-style="btn btn-link" id="tDCPaymentClass"
-                          [(ngModel)]="tDCPaymentClass" name="tDCPaymentClass">
+                          [(ngModel)]="tDCPaymentClass" name="tDCPaymentClass" (ngModelChange)="validateDayCarePayments()">
                           <option disabled selected value="">{{classAvailability}}</option>
                           <option *ngFor="let item of dNonPaymentEntries" value={{item.entryName}}>{{item.entryName}}</option>
                         </select>
@@ -288,7 +295,7 @@
 
                     <div class="col-md-3">
                       <div class="create-user-actions text-center">
-                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addDCPaymentEntry()">Save</button>
+                        <button class="btn btn-success btn-round btn-sm" type="reset" (click)="addDCPaymentEntry()" [disabled]="isDayCareFeeSaveDisabled">Save</button>
                         &nbsp;
                         <button class="btn btn-warning btn-round btn-sm" type="reset">Clear</button>
                       </div>
@@ -337,8 +344,8 @@
             <div class="form-group">
               <label for="seClassName">Class Name</label>
               <input type="text" class="form-control" id="seClassName" aria-describedby="seClassNameHelp" placeholder="Enter class name"
-                [(ngModel)]="tUpdateNonPaymentClassName" (ngModelChange)="validateClasses(tUpdateNonPaymentClassName)" name="updateNPClassName">
-              <small id="seClassNameHelp" class="form-text text-muted">Type class name</small>
+                [(ngModel)]="tUpdateNonPaymentClassName" name="updateNPClassName" disabled>
+              <!-- <small id="seClassNameHelp" class="form-text text-muted">Type class name</small> -->
             </div>
           </div>
 
@@ -346,7 +353,7 @@
             <div class="form-group">
               <label for="seClassYear">Year</label>
               <input type="number" class="form-control" id="seClassYear" aria-describedby="seClassYearHelp" placeholder="Enter year"
-                [(ngModel)]="tUpdateNonPaymentClassYear" name="updateNPClassYear">
+                [(ngModel)]="tUpdateNonPaymentClassYear" (ngModelChange)="validateClassesOnUpdate()" name="updateNPClassYear">
               <small id="seClassYearHelp" class="form-text text-muted">Type the year</small>
             </div>
           </div>
@@ -387,7 +394,7 @@
               <input type="text" class="form-control" id="seCategoryName" aria-describedby="seCategoryNameHelp"
                 placeholder="Enter category name" [(ngModel)]="tUpdatePaymentCategory" name="updatePCategory"
                 [disabled]="isSchool">
-              <small id="seCategoryNameHelp" class="form-text text-muted">Type category name</small>
+              <small id="seCategoryNameHelp" class="form-text text-muted">Category</small>
             </div>
           </div>
 
@@ -395,8 +402,8 @@
             <div class="form-group school-fees-align-with-select">
               <label for="seCategoryAmount">Amount</label>
               <input type="number" class="form-control" id="seCategoryAmount" aria-describedby="seCategoryAmountHelp"
-                placeholder="Enter amount" [(ngModel)]="tUpdatePaymentAmount" name="updatePAmount">
-              <small id="seCategoryAmountHelp" class="form-text text-muted">Type the amount</small>
+                placeholder="Enter amount" [(ngModel)]="tUpdatePaymentAmount" name="updatePAmount" (ngModelChange)="validatePaymentEntriesUpdate()">
+              <small id="seCategoryAmountHelp" class="form-text text-muted">Type the amount. Currency - <b>LKR</b></small>
             </div>
           </div>
 
@@ -428,7 +435,8 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         &nbsp;
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updatePaymentEntry()">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updatePaymentEntry()" [disabled]="isUpdateAmountDisabled">Save
+          changes</button>
       </div>
     </div>
   </div>
