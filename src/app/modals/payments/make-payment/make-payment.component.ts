@@ -4,6 +4,7 @@ import { StudentService } from '../../../../services/students/student.service'
 import { AdmissionService } from '../../../../services/payments/admission/admission.service'
 import { MonthlyService } from '../../../../services/payments/monthly/monthly.service'
 import { OtherPaymentsService } from '../../../../services/payments/other-payments/other-payments.service'
+import { environment } from 'src/environments/environment.prod';
 
 @Component({
   selector: 'app-make-payment',
@@ -109,7 +110,11 @@ export class MakePaymentComponent implements OnInit {
   }
 
   validateSchoolMonthlyForm() {
-    this.isSchoolMonthPayButtonDisable = (this.paymentMonth && this.monthlySchoolFeeReciept) ? false : true
+
+    var res = this.userData.monthlyFee.filter(item => (item.month == this.paymentMonth && item.status == 'School Fee'))
+    var stat = (res.length == 0) ? true : false
+
+    this.isSchoolMonthPayButtonDisable = (this.paymentMonth && this.monthlySchoolFeeReciept && stat) ? false : true
   }
 
   validateUpdateSchoolFeeForm() {
@@ -131,8 +136,10 @@ export class MakePaymentComponent implements OnInit {
       this.dcAmount = dcFee.entryAmount
     }
 
+    var res = this.userData.monthlyFee.filter(item => (item.month == this.dcPayementMonth && item.status !== 'School Fee'))
+    var stat = (res.length == 0) ? true : false
 
-    this.isDCPayButtonDisable = (this.dcPayementMonth && this.txtDCPayementReciept && this.dcMonthlyPaymentStatusName) ? false : true
+    this.isDCPayButtonDisable = (this.dcPayementMonth && this.txtDCPayementReciept && this.dcMonthlyPaymentStatusName && stat) ? false : true
   }
 
   setAdmissionRecordDetail(amount, reciept, recordID, admissionId) {
