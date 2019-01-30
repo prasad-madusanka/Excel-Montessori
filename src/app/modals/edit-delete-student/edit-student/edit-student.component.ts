@@ -228,42 +228,7 @@ export class EditStudentComponent implements OnInit {
   }
 
   refreshData(res) {
-    this.filteredStudentDetails[this.recordIndex] = {
-      "stName": res.stName,
-      "stPreferedName": res.stPreferedName,
-      "stDOB": res.stDOB,
-      "stGender": res.stGender,
-      "stReligion": res.stReligion,
-      "stNationality": res.stNationality,
-      "stLanguage1": res.stLanguage1,
-      "stLanguage2": res.stLanguage2,
-      "stHomeAddress": res.stHomeAddress,
-      "stHomeTelephone": (res.stHomeTelephone != undefined) ? (res.stHomeTelephone).toString() : '',
-      "faName": res.faName,
-      "faNIC": res.faNIC,
-      "faOccupation": res.faOccupation,
-      "faOfficeAddress": res.faOfficeAddress,
-      "faMobile": (res.faMobile != undefined) ? (res.faMobile).toString() : '',
-      "faOffTelephone": (res.faOffTelephone != undefined) ? (res.faOffTelephone).toString() : '',
-      "moName": res.moName,
-      "moNIC": res.moNIC,
-      "moOccupation": res.moOccupation,
-      "moOfficeAddress": res.moOfficeAddress,
-      "moMobile": (res.moMobile != undefined) ? (res.moMobile).toString() : '',
-      "moOffTelephone": (res.moOffTelephone != undefined) ? (res.moOffTelephone).toString() : '',
-      "picUpName1": res.picUpName1,
-      "picUpNIC1": res.picUpNIC1,
-      "picUpName2": res.picUpName2,
-      "picUpNIC2": res.picUpNIC2,
-      "ecName": res.ecName,
-      "ecRelationship": res.ecRelationship,
-      "ecAddress": res.ecAddress,
-      "ecTelephone": (res.ecTelephone != undefined) ? (res.ecTelephone).toString() : '',
-      "ofFacilityType": res.ofFacilityType,
-      "stAdmittedMonth": res.stAdmittedMonth,
-      "stAdmittedYear": (res.stAdmittedYear != undefined) ? (res.stAdmittedYear).toString() : '',
-      "stAdmittedClass": res.stName,
-    }
+    this.studentDetails[this.recordIndex] = res
   }
 
 
