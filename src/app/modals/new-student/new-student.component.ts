@@ -100,8 +100,8 @@ export class NewStudentComponent implements OnInit {
 
     this.illnessesTypes = [
       { illnessesName: 'Seizures', status: false },
-      { illnessesName: 'Allergies', status: true },
-      { illnessesName: 'Respiratory Illness', status: true },
+      { illnessesName: 'Allergies', status: false },
+      { illnessesName: 'Respiratory Illness', status: false },
       { illnessesName: 'Drug Reactions', status: false },
       { illnessesName: 'ADHD', status: false },
       { illnessesName: 'Speech Difficulty', status: false }
@@ -248,81 +248,5 @@ export class NewStudentComponent implements OnInit {
       this.officeWithDC && this.officeMonth && this.officeYear && this.officeStudClass && this.schoolAdmission != 0) ? false : true
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // calculateRates() {
-
-  //   this.showDayCareChargers = (this.officeWithDC === environment.SCHOOL_ONLY) ? false : true
-
-  //   if (this.officeWithDC !== environment.ADMISSION_DAYCARE_ONLY) {
-
-  //     this.schoolMonthlyFee = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == this.officeWithDC))
-  //     this.schoolMonthlyFee = (this.schoolMonthlyFee) ? parseInt(this.schoolMonthlyFee.entryAmount) : 0
-  //     this.schoolYearFee = this.schoolMonthlyFee * 12
-
-  //   } else {
-
-  //     this.schoolMonthlyFee = 0
-  //     this.schoolYearFee = 0
-
-  //   }
-
-  //   var admissionType
-
-  //   if (this.officeWithDC === environment.SCHOOL_ONLY) {
-  //     admissionType = environment.ADMISSION_SCHOOL_ONLY
-  //   } else if (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE) {
-  //     admissionType = environment.ADMISSION_SCHOOL_WITH_DAYCARE
-  //   } else {
-  //     admissionType = environment.ADMISSION_DAYCARE_ONLY
-  //   }
-
-  //   // var admissionType = (this.officeWithDC === environment.SCHOOL_WITH_DAYCARE)
-  //   //   ? environment.ADMISSION_SCHOOL_WITH_DAYCARE
-  //   //   : environment.ADMISSION_SCHOOL_ONLY
-
-  //   this.schoolAdmission = this.paymentTypes.find(item => (item.entryClass == this.officeStudClass) && (item.entryName == admissionType))
-  //   this.schoolAdmission = (this.schoolAdmission) ? parseInt(this.schoolAdmission.entryAmount) : 0
-
-  //   this.calculateTotal()
-
-  // }
-
-  // calculateExtraPayments(event, itemCharge) {
-
-  //   (event.currentTarget.checked) ? (this.schoolExtraFees += itemCharge.entryAmount) : (this.schoolExtraFees -= itemCharge.entryAmount)
-  //   this.calculateTotal()
-  // }
-
-  // calculateTotal() {
-  //   this.totalFee = this.schoolYearFee + this.schoolAdmission + this.schoolExtraFees
-  // }
-
-  // calculateRatesL() {
-  //   console.log(this.daycareCharge)
-  // }
-
 
 }
